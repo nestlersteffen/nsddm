@@ -1,0 +1,32 @@
+# --- TMB-specific Makevars file ---
+#
+# In principle, TMB model compilation is a completely separate process from
+# that of the remainder of 'src'.
+# Therefore, other Makevars flags can be added here, e.g.,
+#
+## CXX_STD = CXX14 # uncomment this line to enable C++14 support
+#
+# Flags specifically for the TMB compilation can also be set
+# through the 'TMB_FLAGS' argument below, e.g.,
+#
+## TMB_FLAGS = -I"../../inst/include" # add include directory inst/include
+#
+# --- TMB-specific compiling directives below ---
+
+.PHONY: all tmblib
+
+all: $(SHLIB)
+$(SHLIB): tmblib
+
+TMB_FLAGS = -Wa,-mbig-obj
+
+tmblib: 
+	(cd TMB; $(R_HOME)/bin$(R_ARCH_BIN)/Rscript \
+	--no-save --no-restore compile.R '$(TMB_FLAGS)')
+
+clean:
+	rm -rf *.dll *.o TMB/*.dll TMB/*.o
+
+#  --Rcpp
+PKG_CXXFLAGS = $(SHLIB_OPENMP_CXXFLAGS) -O3 -mavx2 -mfma -DNDEBUG
+PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)

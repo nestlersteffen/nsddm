@@ -1,0 +1,24 @@
+Package: nbddm
+Type: Package
+Title: Maximum Likelihood and Bayesian Estimation for DDMs
+Version: 0.0.1
+Date: 2026-08-31
+Author: Steffen Nestler and Nele Boegemann
+Maintainer: Steffen Nestler <steffen.nestler@uni-muenster.de>
+Description: 
+    Provides functionality for maximum likelihood estimation and 
+    Bayesian estimation for 4- and 7-DDM models.
+Depends:
+    R (>= 4.4), fastGHQuad, nloptr, foreach
+Imports: 
+    TMB (>= 1.9.19), Rcpp (>= 1.1.0), RcppArmadillo, stats, utils, mvtnorm, numDeriv, rtdists, MCMCpack
+Enhances:
+    rtdists
+LinkingTo:
+    TMB, Rcpp, RcppArmadillo
+Suggests: parallel, doParallel
+License: GPL (>= 2)
+Encoding: UTF-8
+Config/roxygen2/version: 8.0.0
+LazyData: true
+RoxygenNote: 7.3.3
