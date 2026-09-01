@@ -124,7 +124,7 @@ arma::vec ddm4_lanll_weights_batch_rcpp( const arma::vec& rt, const arma::ivec& 
     // Forward-Pass als Batch (eine Matrixmultiplikation pro Layer statt n einzelne):
     arma::mat H1 = X * W1;
     H1.each_row() += b1.t();
-    // H1 = arma::tanh(H1);
+    H1 = arma::tanh(H1);
     
     arma::mat H2 = H1 * W2;
     H2.each_row() += b2.t();
