@@ -39,18 +39,6 @@ void lan_load_weights_rcpp( const std::string& path, const std::string& ddm ) {
     b4.load(path + "b4.bin", arma::raw_binary);
     Rcpp::Rcout << "Weights loaded from " << path << std::endl;
 
-    // Copy to Eigen format for fast batched forward pass.
-    // arma::mat is column-major (same as Eigen::MatrixXd default), so we can
-    // use Eigen::Map to wrap the existing memory and then assign (= copy).
-    // W1_e = Eigen::Map<Eigen::MatrixXd>(W1.memptr(), W1.n_rows, W1.n_cols);
-    // W2_e = Eigen::Map<Eigen::MatrixXd>(W2.memptr(), W2.n_rows, W2.n_cols);
-    // W3_e = Eigen::Map<Eigen::MatrixXd>(W3.memptr(), W3.n_rows, W3.n_cols);
-    // W4_e = Eigen::Map<Eigen::MatrixXd>(W4.memptr(), W4.n_rows, W4.n_cols);
-    
-    // b1_e = Eigen::Map<Eigen::VectorXd>(b1.memptr(), b1.n_elem).transpose();
-    // b2_e = Eigen::Map<Eigen::VectorXd>(b2.memptr(), b2.n_elem).transpose();
-    // b3_e = Eigen::Map<Eigen::VectorXd>(b3.memptr(), b3.n_elem).transpose();
-    // b4_e = Eigen::Map<Eigen::VectorXd>(b4.memptr(), b4.n_elem).transpose();
 }
 
 double lan_forward_rcpp( const arma::vec& input ) {
@@ -62,40 +50,6 @@ double lan_forward_rcpp( const arma::vec& input ) {
     x = W4.t() * x + b4;  // linear
     return x(0);
 }
-
-// arma::vec lan_forward_batch_rcpp( const arma::mat& X ) {
-    
-//     const int n = X.n_rows;
-//     const int in_dim = X.n_cols;
-    
-//     // Zero-copy view of the armadillo input as an Eigen matrix
-//     Eigen::Map<const Eigen::MatrixXd> X_e( X.memptr(), n, in_dim );
-    
-//     // Forward pass:
-//     // Layer 1: (n x in_dim) * (in_dim x 100) -> (n x 100), add bias, tanh
-//     Eigen::MatrixXd A = X_e * W1_e;
-//     A.rowwise() += b1_e;
-//     A = A.array().tanh().matrix();
-    
-//     // Layer 2: (n x 100) * (100 x 100) -> (n x 100)
-//     Eigen::MatrixXd B = A * W2_e;
-//     B.rowwise() += b2_e;
-//     B = B.array().tanh().matrix();
-    
-//     // Layer 3: (n x 100) * (100 x 120) -> (n x 120)
-//     A = B * W3_e;
-//     A.rowwise() += b3_e;
-//     A = A.array().tanh().matrix();
-    
-//     // Layer 4: (n x 120) * (120 x 1) -> (n x 1), linear (no tanh)
-//     B = A * W4_e;
-//     B.rowwise() += b4_e;
-    
-//     // Result: copy column 0 into arma::vec
-//     arma::vec result(n);
-//     Eigen::Map<Eigen::VectorXd>( result.memptr(), n ) = B.col(0);
-//     return result;
-// }
 
 arma::vec lan_forward_backward_rcpp( const arma::vec& input, const int& idx ) {
     
@@ -151,21 +105,40 @@ arma::vec ddm4_lanll_weights_rcpp( const arma::vec& rt, const arma::ivec& x,
     return ll;
 }
 
-// arma::vec ddm4_lanll_weights_rcpp_new( const arma::vec& rt, const arma::ivec& x,
-//     const double& a, const double& t0, const double& z, const double& v ) {
+arma::vec ddm4_lanll_weights_batch_rcpp( const arma::vec& rt, const arma::ivec& x,
+    const double& a, const double& t0, const double& z, const double& v ) {
     
-//     // size:
-//     int n = rt.size();
-//     // build input matrix: 
-//     arma::mat X(n, 6);
-//     X.col(0).fill(a);
-//     X.col(1).fill(v);
-//     X.col(2).fill(t0);
-//     X.col(3).fill(z);
-//     X.col(4) = arma::conv_to<arma::vec>::from(x);  // ivec -> vec
-//     X.col(5) = rt;
-//     return lan_forward_batch_rcpp(X);
-// }
+    int n = rt.size();
+
+    // Rcpp::Rcout << "Hier bin ich:" << n << std::endl;
+    
+    // Input-Matrix bauen: (n x 6)
+    arma::mat X(n, 6);
+    X.col(0).fill(a);
+    X.col(1).fill(v);
+    X.col(2).fill(t0);
+    X.col(3).fill(z);
+    X.col(4) = arma::conv_to<arma::vec>::from(x);
+    X.col(5) = rt;
+    
+    // Forward-Pass als Batch (eine Matrixmultiplikation pro Layer statt n einzelne):
+    arma::mat H1 = X * W1;
+    H1.each_row() += b1.t();
+    // H1 = arma::tanh(H1);
+    
+    arma::mat H2 = H1 * W2;
+    H2.each_row() += b2.t();
+    H2 = arma::tanh(H2);
+    
+    arma::mat H3 = H2 * W3;
+    H3.each_row() += b3.t();
+    H3 = arma::tanh(H3);
+    
+    arma::mat out = H3 * W4;
+    out.each_row() += b4.t();   // linear, keine Aktivierung
+    
+    return out.col(0);   // (n x 1) -> Vektor der Länge n
+}
 
 arma::vec ddm7_lanll_weights_rcpp( const arma::vec& rt, const arma::ivec& x,
     const double& a, const double& t0, const double& z, const double& v,
