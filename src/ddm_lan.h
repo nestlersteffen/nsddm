@@ -32,8 +32,8 @@ arma::vec lan_forward_backward_rcpp( const arma::vec& input, const int& idx = 4 
 arma::vec ddm4_lanll_weights_rcpp( const arma::vec& rt, const arma::ivec& x,
     const double& a, const double& t0, const double& z, const double& v );
 
-// arma::vec ddm4_lanll_weights_rcpp_new( const arma::vec& rt, const arma::ivec& x,
-//     const double& a, const double& t0, const double& z, const double& v );
+arma::vec ddm4_lanll_weights_batch_rcpp( const arma::vec& rt, const arma::ivec& x,
+    const double& a, const double& t0, const double& z, const double& v );
 
 arma::vec ddm7_lanll_weights_rcpp( const arma::vec& rt, const arma::ivec& x,
     const double& a, const double& t0, const double& z, const double& v,
