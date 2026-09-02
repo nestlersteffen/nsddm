@@ -34,6 +34,29 @@ ddm_load_weights <- function( ddm="four" )
     return(weights)
 }
 
+ddm_load_dnn <- function( ddm="four" ) 
+{
+    #- get path:
+    path <- system.file( paste0("extdata/", ddm ), package = "nbddm")
+    if (path == "") stop("extdata directory not found in nbddm package")
+    path <- paste0( path, .Platform$file.sep )
+
+    #- load model:
+    model <- keras3::load_model( paste0( path, "Trained_Model_",ddm,"_param.keras" ) )
+
+    #- generate some fake data:
+    if ( ddm=="four" ) { 
+        df <- ddm4_simulate( 1, c(0,log(0.25),log(0.25),log(0.1) ), "dao" )
+        invisible( ddm4_lan_llfct_dnn( model, df$rt, df$xs, 0, 0.5, 0.25, 0.1 ) )
+    } else {
+        df <- ddm7_simulate( 1, c(0,log(0.25),log(0.25),log(0.1), log(1), log(0.3), log(0.1) ), "dao" )
+        invisible( ddm7_lan_llfct_dnn( model, df$rt, df$xs, 0, 0.5, 0.25, 0.1, 1, 0.3, 0.1 ) )
+    }
+    
+    #- return them
+    return( model )
+}
+
 ddm_load_weights_rcpp <- function( ddm="four" ) {
     path <- system.file( paste0("extdata/", ddm ), package = "nbddm")
     if (path == "") stop("extdata directory not found in nbddm package")
@@ -80,7 +103,7 @@ ddm4_lanll_weights <- function( weights, a, v, t0, z, rt, xs, K )
     tmpMat <- matrix( c(a, v, t0, z), nrow=length(rt), ncol=K, byrow=TRUE)
     tmpMat <- cbind( tmpMat, xs, rt)
     ll <- apply( tmpMat, 1, function(row) lan_forward(row, weights))
-    return( as.vector(ll) )
+    return( sum( as.vector(ll) ) )
 }
 
 ddm7_lanll_weights <- function( weights, a, v, t0, z, sv, sz, st0, rt, xs, K ) 
@@ -88,7 +111,7 @@ ddm7_lanll_weights <- function( weights, a, v, t0, z, sv, sz, st0, rt, xs, K )
     tmpMat <- matrix( c(a, v, t0, z, sv, sz, st0), nrow=length(rt), ncol=K, byrow=TRUE)
     tmpMat <- cbind( tmpMat, xs, rt)
     ll <- apply( tmpMat, 1, function(row) lan_forward(row, weights))
-    return( as.vector(ll) )
+    return( sum( as.vector(ll) ) )
 }
 
 #- a wrapper for the neural network with gradient: 
@@ -158,9 +181,51 @@ ddm_lan_nllfct_gradient_wrap <- function(alpha=NULL, rt=NULL, xs=NULL, MU=NULL, 
 
 #- wrapper for lan-loglik-fct that uses the dnn object (not used anymore):
 
-lan_loglik_dnn <- function( dnn, a, v, t0, z, rt, xs, K) 
+ddm4_lan_llfct_dnn <- function( dnn=NULL, rt=NULL, xs=NULL, v=NULL, a=NULL, z=NULL, t0=NULL )
 {
-    tmpMat <- matrix( c(a, v, t0, z), nrow=length(rt), ncol=K, byrow=TRUE)
-    tmpMat <- cbind( tmpMat, xs, rt)
-    as.array( dnn( tmpMat ) )
+    #- no. of reaction times:
+    n <- length( rt)
+    #- make temporary data matrix:
+    tmpMat <- matrix(0, nrow = n, ncol = 6)
+    tmpMat[,1] <- a; tmpMat[,2] <- v; tmpMat[, 3] <- t0; tmpMat[, 4] <- z
+    tmpMat[,5] <- xs
+    tmpMat[,6] <- rt
+    #- compute ll values:
+    ll <- dnn( tmpMat )
+    return( as.array( sum( ll ) ) )
+}
+
+ddm4_lan_llfct_gradient_dnn <- function( dnn=NULL, rt=NULL, xs=NULL, v=NULL, a=NULL, z=NULL, t0=NULL )
+{
+    #- no. of reaction times:
+    n <- length( rt )
+    
+    #- parameter to "watch" for:
+    a0  <- tf$Variable(a,  dtype = tf$float32)
+    v0  <- tf$Variable(v,  dtype = tf$float32)
+    z0  <- tf$Variable(z,  dtype = tf$float32)
+    t00 <- tf$Variable(t0, dtype = tf$float32)
+    
+    #- data are constants:
+    rt_tensor <- tf$constant( rt, dtype = tf$float32)
+    xs_tensor <- tf$constant( xs, dtype = tf$float32)
+    ones_n    <- tf$ones( shape = list(n), dtype = tf$float32 )
+    
+    with( tf$GradientTape() %as% tape, {
+        
+        # broadcast parms to length n:
+        col_a  <- a0  * ones_n
+        col_v  <- v0  * ones_n
+        col_t0 <- t00 * ones_n
+        col_z  <- z0  * ones_n
+        # make a temporary data matrix:
+        tmpMat <- tf$stack( list( col_a, col_v, col_t0, col_z, xs_tensor, rt_tensor), axis = 1L)
+        # compute ll value
+        ll <- dnn( tmpMat )
+        ll_sum <- tf$reduce_sum(ll)
+    } )
+    
+    gr <- tape$gradient( ll_sum, list(a0, v0, z0, t00) )
+    gr <- lapply( gr, function(x) as.array( x ) )
+    return( list( "objective"=-1*as.array( ll_sum ), "gradient"=-1*do.call("c", gr ) ) )
 }

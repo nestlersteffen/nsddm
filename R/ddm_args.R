@@ -7,6 +7,7 @@ ddm_args <- function(
     use_tmb_modes = TRUE,
     use_rcpp = TRUE, 
     use_lan = FALSE,
+    use_tf = FALSE,
     kmax = 5000L,
     delta = 1e-29,
     # max-lik specific agruments:

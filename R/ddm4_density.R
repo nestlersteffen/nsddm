@@ -160,7 +160,7 @@ ddm4_pdf <- function( rt = NULL, x = NULL,
 
 #- standard data-llfct:
 
-ddm4_logLdata <- function( us=NULL, rt=NULL, xs=NULL, args=NULL, weights=NULL ) 
+ddm4_logLdata <- function( us=NULL, rt=NULL, xs=NULL, args=NULL, weights=NULL, dnn=NULL ) 
 { 
     #- Step 1: transform parameters
     if ( args$type_alpha == "dao") {
@@ -178,7 +178,11 @@ ddm4_logLdata <- function( us=NULL, rt=NULL, xs=NULL, args=NULL, weights=NULL )
       
     #- step 2: compute likelihood
     if ( args$use_lan ) {
-        nll <- sum( ddm4_lanll_weights( weights, a, v, t0, z, rt, xs, K = length(us) ) )
+        if ( args$use_tf ) {
+            nll <- ddm4_lan_llfct_dnn( dnn, a, v, t0, z, rt, xs, K = length(us) )    
+        } else {
+            nll <- ddm4_lanll_weights( weights, a, v, t0, z, rt, xs, K = length(us) )
+        }
     } else {
         ll <- ddm4_pdf(rt=rt, x=xs, a=a, t0=t0, z=z, v=v, type_ddm=args$type_ddm, kmax=args$kmax, delta=args$delta )
         ll[ll == 0 | ll == Inf] <- 1e-29
@@ -190,17 +194,17 @@ ddm4_logLdata <- function( us=NULL, rt=NULL, xs=NULL, args=NULL, weights=NULL )
 
 #- standard negative data-llfct:
 
-ddm4_nllfct <- function(us=NULL, rt=NULL, xs=NULL, args=NULL, weights=NULL) {
-  -ddm4_logLdata(us=us, rt=rt, x=xs, args=args, weights=weights)
+ddm4_nllfct <- function(us=NULL, rt=NULL, xs=NULL, args=NULL, weights=NULL, dnn=NULL) {
+  -ddm4_logLdata(us=us, rt=rt, x=xs, args=args, weights=weights, dnn=dnn)
 }
 
 #- standard negative data-llfct including random effects
 
 ddm4_random_nllfct <- function( us=NULL, rt=NULL, xs=NULL, 
-    MU=NULL, SIGMA=NULL, args=NULL, weights=NULL ) 
+    MU=NULL, SIGMA=NULL, args=NULL, weights=NULL, dnn=NULL ) 
 {
     #- data likelihood:
-    log_pData <- ddm4_nllfct( us=us, rt=rt, xs=xs, args=args, weights=weights ) 
+    log_pData <- ddm4_nllfct( us=us, rt=rt, xs=xs, args=args, weights=weights, dnn=dnn ) 
     #- log prior:
     log_prior <- mvtnorm::dmvnorm( us, MU, SIGMA, log = TRUE )
     return( log_pData - log_prior )
