@@ -38,6 +38,7 @@ void lan_load_weights_rcpp( const std::string& path, const std::string& ddm ) {
     b3.load(path + "b3.bin", arma::raw_binary);
     b4.load(path + "b4.bin", arma::raw_binary);
     Rcpp::Rcout << "Weights loaded from " << path << std::endl;
+    // Rcpp::Rcout << "b1" << b1 << std::endl;
 
     // Copy to Eigen format for fast batched forward pass.
     // arma::mat is column-major (same as Eigen::MatrixXd default), so we can
@@ -56,6 +57,8 @@ void lan_load_weights_rcpp( const std::string& path, const std::string& ddm ) {
 double lan_forward_rcpp( const arma::vec& input ) {
     
     arma::vec x = input;
+    // Rcpp::Rcout << "input" << x << std::endl;
+    // Rcpp::Rcout << "x" << W1.t() * x + b1 << std::endl;
     x = arma::tanh( W1.t() * x + b1 );
     x = arma::tanh( W2.t() * x + b2 );
     x = arma::tanh( W3.t() * x + b3 );
