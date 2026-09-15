@@ -1,4 +1,4 @@
-Package: nbddm
+Package: nsddm
 Type: Package
 Title: Maximum Likelihood and Bayesian Estimation for DDMs
 Version: 0.0.1

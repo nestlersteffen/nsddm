@@ -108,8 +108,7 @@ ddm4_getmodes <- function( parm = NULL, data_list = NULL, parm_list = NULL,
                     fn=ddm_lan_nllfct_gradient_wrap, rt=rti, xs=xsi, 
                     MU=MU, SIGMA=SIGMA, invSIGMA=invSIGMA, both=FALSE, ddm="four" ), 
                     error = function(e) NULL )
-            } 
-            else {
+            } else {
                 HESS <- tryCatch(
                     numDeriv::hessian( x = MODE, func = ddm4_random_nllfct_rcpp, 
                         rt = rti, xs = xsi, MU = MU, SIGMA = SIGMA, 
@@ -120,7 +119,7 @@ ddm4_getmodes <- function( parm = NULL, data_list = NULL, parm_list = NULL,
                 )
             }
 
-            if ( is.null( HESS ) && any( is.na( HESS ) ) && any( is.infinite( HESS ) ) ) { 
+            if ( is.null( HESS ) || any( is.na( HESS ) ) || any( is.infinite( HESS ) ) ) { 
 
                 #- save modes and compute other stuff:
                 MODE <- start_u

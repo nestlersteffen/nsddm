@@ -1,4 +1,4 @@
-# Contributing to nbddm
+# Contributing to nsddm
 
 Thank you for your interest! This package is maintained as a
 personal research project. I do not accept external pull requests.
