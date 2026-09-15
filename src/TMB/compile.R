@@ -1,4 +1,4 @@
-# tmb_name <- "nbddm_TMBExports"
+# tmb_name <- "nsddm_TMBExports"
 # tmb_flags <- commandArgs(trailingOnly = TRUE)
 
 # if(file.exists(paste0(tmb_name, ".cpp"))) {
@@ -10,7 +10,7 @@
 #             to = "..", overwrite = TRUE)
 # }
 
-tmb_name  <- "nbddm_TMBExports"
+tmb_name  <- "nsddm_TMBExports"
 tmb_flags <- commandArgs(trailingOnly = TRUE)
 
 if(file.exists(paste0(tmb_name, ".cpp"))) {

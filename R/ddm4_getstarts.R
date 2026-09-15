@@ -20,7 +20,7 @@ ddm4_getstarts <- function( data_list=NULL, parm_table=NULL, args=NULL,
 
     #- load matrices in case of use_lan:
     if ( args$use_lan ) {
-        lan_path <- paste0( system.file("extdata/four", package = "nbddm"), .Platform$file.sep )
+        lan_path <- paste0( system.file("extdata/four", package = "nsddm"), .Platform$file.sep )
         lan_load_weights_export( lan_path, "four" )
     }
   
@@ -41,7 +41,7 @@ ddm4_getstarts <- function( data_list=NULL, parm_table=NULL, args=NULL,
             tparm <- list( parm = parm )
 
             obj   <- TMB::MakeADFun( data = tdata, parameters = tparm,  
-                DLL = "nbddm_TMBExports", # DLL = "ddm4_tmb",
+                DLL = "nsddm_TMBExports", # DLL = "ddm4_tmb",
                 silent = TRUE )
             fit_n <- suppressWarnings( tryCatch( 
                 stats::nlminb( obj$par, objective = obj$fn, gradient = obj$gr, 

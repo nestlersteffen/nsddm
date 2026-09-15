@@ -5,8 +5,8 @@ ddm_load_weights <- function( ddm="four" )
 {
     
     #- get path:
-    path <- system.file( paste0("extdata/", ddm ), package = "nbddm")
-    if (path == "") stop("extdata directory not found in nbddm package")
+    path <- system.file( paste0("extdata/", ddm ), package = "nsddm")
+    if (path == "") stop("extdata directory not found in nsddm package")
     path <- paste0( path, .Platform$file.sep )
 
     #- define dimensions of the matrices:
@@ -37,8 +37,8 @@ ddm_load_weights <- function( ddm="four" )
 ddm_load_dnn <- function( ddm="four" ) 
 {
     #- get path:
-    path <- system.file( paste0("extdata/", ddm ), package = "nbddm")
-    if (path == "") stop("extdata directory not found in nbddm package")
+    path <- system.file( paste0("extdata/", ddm ), package = "nsddm")
+    if (path == "") stop("extdata directory not found in nsddm package")
     path <- paste0( path, .Platform$file.sep )
 
     #- load model:
@@ -58,8 +58,8 @@ ddm_load_dnn <- function( ddm="four" )
 }
 
 ddm_load_weights_rcpp <- function( ddm="four" ) {
-    path <- system.file( paste0("extdata/", ddm ), package = "nbddm")
-    if (path == "") stop("extdata directory not found in nbddm package")
+    path <- system.file( paste0("extdata/", ddm ), package = "nsddm")
+    if (path == "") stop("extdata directory not found in nsddm package")
     path <- paste0( path, .Platform$file.sep )   # trailing slash
     lan_load_weights_export( path, ddm )
 }

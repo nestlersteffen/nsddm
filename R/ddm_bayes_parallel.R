@@ -10,7 +10,7 @@ ddm_parallel_bayes <- function( rts=NULL, xs=NULL, info=NULL, I=NULL, K=NULL,
 
     #- get path:
     lan_path <- if ( args$use_lan && args$use_rcpp ) {
-        paste0( system.file( paste0("extdata/", ddm ), package = "nbddm" ), .Platform$file.sep )
+        paste0( system.file( paste0("extdata/", ddm ), package = "nsddm" ), .Platform$file.sep )
     } else {""}
 
     #- backend setup
@@ -24,7 +24,7 @@ ddm_parallel_bayes <- function( rts=NULL, xs=NULL, info=NULL, I=NULL, K=NULL,
         
     #- run chains in parallel:
     nc <- NULL
-    results <- foreach::foreach( nc = seq(1, nchain, 1 ), .packages = "nbddm" ) %dopar% {
+    results <- foreach::foreach( nc = seq(1, nchain, 1 ), .packages = "nsddm" ) %dopar% {
         
         nbddm::ddm_chain_rcpp( rts=rts, xs=xs, info=info, I=I, K=K, 
             alpha=inits$alpha[,,nc],c_MUa=inits$MUa[,nc],c_SIGa=inits$SIGa[,,nc],

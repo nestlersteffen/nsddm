@@ -17,7 +17,7 @@ ddm7_getstarts <- function( data_list=NULL, parm_table=NULL, args=NULL,
 
     #- load matrices in case of use_lan:
     if ( args$use_lan ) {
-        lan_path <- paste0(system.file("extdata", package = "nbddm"), .Platform$file.sep)
+        lan_path <- paste0(system.file("extdata", package = "nsddm"), .Platform$file.sep)
         lan_load_weights_export( lan_path )
     }
   
@@ -32,7 +32,7 @@ ddm7_getstarts <- function( data_list=NULL, parm_table=NULL, args=NULL,
     }
   
     #- let's go:
-    res <- foreach::foreach( i = seq(I), .packages = "nbddm" ) %loop% {    
+    res <- foreach::foreach( i = seq(I), .packages = "nsddm" ) %loop% {    
       
         #- collect person data:
         idx1 <- info[i,3] - info[i,2] + 1 
@@ -54,7 +54,7 @@ ddm7_getstarts <- function( data_list=NULL, parm_table=NULL, args=NULL,
             tparm <- list( parm = parm )
 
             obj   <- TMB::MakeADFun( data = tdata, parameters = tparm,  
-                DLL = "nbddm_TMBExports", # DLL = "ddm4_tmb",
+                DLL = "nsddm_TMBExports", # DLL = "ddm4_tmb",
                 silent = TRUE )
             fit_n <- suppressWarnings( tryCatch( 
                 stats::nlminb( obj$par, objective = obj$fn, gradient = obj$gr, 

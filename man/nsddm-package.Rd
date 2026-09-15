@@ -4,7 +4,7 @@
 \name{nsddm-package}
 \alias{nsddm}
 \alias{nsddm-package}
-\title{nsddmm: Fit triadic and dyadic round-robin data}
+\title{nsddmm: Fit 4-parameter DDM with LML and Bayes}
 \description{
 Provides functionality for maximum likelihood and Bayesian 
   estimation for the 4-parameter drift-diffusion model.

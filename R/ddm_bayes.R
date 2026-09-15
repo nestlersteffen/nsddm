@@ -177,7 +177,7 @@ ddm_random_bayes <- function( data_list=NULL, parm_table=NULL, args=NULL,
 
             #- get path:
             lan_path <- if ( args$use_lan && args$use_rcpp ) {
-                paste0( system.file( paste0("extdata/", ddm ), package = "nbddm" ), .Platform$file.sep )
+                paste0( system.file( paste0("extdata/", ddm ), package = "nsddm" ), .Platform$file.sep )
             } else {""}
 
             res <- ddm_chain_rcpp( rts=rts, xs=xs, info=info, I=I, K=K, 

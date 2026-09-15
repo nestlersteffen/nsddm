@@ -82,7 +82,7 @@ ddm_agh_gradfct <- function( parm=NULL, data_list=NULL, parm_list=NULL,
 
     #- get path:
     lan_path <- if ( args$use_lan && args$use_rcpp ) {
-        paste0( system.file( paste0("extdata/", ddm ), package = "nbddm" ), .Platform$file.sep )
+        paste0( system.file( paste0("extdata/", ddm ), package = "nsddm" ), .Platform$file.sep )
     } else {""}
   
     #- make vector to save ll-values

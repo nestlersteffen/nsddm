@@ -1,11 +1,11 @@
-#' nsddmm: Fit triadic and dyadic round-robin data
+#' nsddmm: Fit 4-parameter DDM with LML and Bayes
 #'
 #' @description Provides functionality for maximum likelihood and Bayesian 
 #'   estimation for the 4-parameter drift-diffusion model.
 #'
 #' @keywords internal
-#' @useDynLib tsrm, .registration = TRUE
-#' @useDynLib tsrm_TMBExports, .registration = TRUE
+#' @useDynLib nsddm, .registration = TRUE
+#' @useDynLib nsddm_TMBExports, .registration = TRUE
 #' @importFrom TMB MakeADFun
 #' @importFrom methods as
 #' @import Rcpp

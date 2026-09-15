@@ -65,7 +65,7 @@ ddm_bayes_singleperson <- function( rt=NULL, xs=NULL, parms=NULL, args=NULL, ddm
 
 	    #- run chains in parallel:
 	    nc <- NULL
-	    results <- foreach::foreach( nc = seq(1, nchain, 1 ), .packages = "nbddm" ) %dopar% {
+	    results <- foreach::foreach( nc = seq(1, nchain, 1 ), .packages = "nsddm" ) %dopar% {
         
         	ddm_fun( inits=init_mat[nc,], rt=rt, xs=xs, args=args, 
     			verbose=FALSE, muPrior_sp=muPrior_sp, sdPrior_sp=sdPrior_sp )

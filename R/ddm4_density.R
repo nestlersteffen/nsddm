@@ -179,7 +179,7 @@ ddm4_logLdata <- function( us=NULL, rt=NULL, xs=NULL, args=NULL, weights=NULL, d
     #- step 2: compute likelihood
     if ( args$use_lan ) {
         if ( args$use_tf ) {
-            nll <- ddm4_lan_llfct_dnn( dnn, a, v, t0, z, rt, xs, K = length(us) )    
+            nll <- ddm4_lan_llfct_dnn( dnn, a, v, t0, z, rt, xs )    
         } else {
             nll <- ddm4_lanll_weights( weights, a, v, t0, z, rt, xs, K = length(us) )
         }
