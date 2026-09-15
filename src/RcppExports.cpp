@@ -13,7 +13,7 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 
 // ddm_chain_rcpp
 Rcpp::List ddm_chain_rcpp(const arma::vec& rts, const arma::ivec& xs, const arma::mat& info, const int I, const int K, arma::mat alpha, arma::colvec c_MUa, arma::mat c_SIGa, const arma::colvec& m, const arma::mat& invM, const arma::mat& S0, const int nu0, arma::vec a_d, const int biter, const int burnin, bool use_adapt_dao, const double tau2, const double epsilon, const double pi_mix, const double pi_mix1, const double pi_mix2, const double pi_mix3, const int R, const std::string method, const std::string type_alpha, const std::string type_proposal, const std::string ddm, bool verbose, const int& kmax, const double& delta, bool use_lan, std::string lan_path);
-RcppExport SEXP _nbddm_ddm_chain_rcpp(SEXP rtsSEXP, SEXP xsSEXP, SEXP infoSEXP, SEXP ISEXP, SEXP KSEXP, SEXP alphaSEXP, SEXP c_MUaSEXP, SEXP c_SIGaSEXP, SEXP mSEXP, SEXP invMSEXP, SEXP S0SEXP, SEXP nu0SEXP, SEXP a_dSEXP, SEXP biterSEXP, SEXP burninSEXP, SEXP use_adapt_daoSEXP, SEXP tau2SEXP, SEXP epsilonSEXP, SEXP pi_mixSEXP, SEXP pi_mix1SEXP, SEXP pi_mix2SEXP, SEXP pi_mix3SEXP, SEXP RSEXP, SEXP methodSEXP, SEXP type_alphaSEXP, SEXP type_proposalSEXP, SEXP ddmSEXP, SEXP verboseSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP, SEXP lan_pathSEXP) {
+RcppExport SEXP _nsddm_ddm_chain_rcpp(SEXP rtsSEXP, SEXP xsSEXP, SEXP infoSEXP, SEXP ISEXP, SEXP KSEXP, SEXP alphaSEXP, SEXP c_MUaSEXP, SEXP c_SIGaSEXP, SEXP mSEXP, SEXP invMSEXP, SEXP S0SEXP, SEXP nu0SEXP, SEXP a_dSEXP, SEXP biterSEXP, SEXP burninSEXP, SEXP use_adapt_daoSEXP, SEXP tau2SEXP, SEXP epsilonSEXP, SEXP pi_mixSEXP, SEXP pi_mix1SEXP, SEXP pi_mix2SEXP, SEXP pi_mix3SEXP, SEXP RSEXP, SEXP methodSEXP, SEXP type_alphaSEXP, SEXP type_proposalSEXP, SEXP ddmSEXP, SEXP verboseSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP, SEXP lan_pathSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -55,7 +55,7 @@ END_RCPP
 }
 // ddm4_pdf_export
 arma::vec ddm4_pdf_export(const arma::vec& rt, const arma::ivec& x, const double& a, const double& t0, const double& w, const double& z, const double& v, const std::string& type_ddm, const int& kmax, const double& delta);
-RcppExport SEXP _nbddm_ddm4_pdf_export(SEXP rtSEXP, SEXP xSEXP, SEXP aSEXP, SEXP t0SEXP, SEXP wSEXP, SEXP zSEXP, SEXP vSEXP, SEXP type_ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP) {
+RcppExport SEXP _nsddm_ddm4_pdf_export(SEXP rtSEXP, SEXP xSEXP, SEXP aSEXP, SEXP t0SEXP, SEXP wSEXP, SEXP zSEXP, SEXP vSEXP, SEXP type_ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -75,7 +75,7 @@ END_RCPP
 }
 // ddm7_pdf_export
 arma::vec ddm7_pdf_export(const arma::vec& rt, const arma::ivec& x, const double& a, const double& t0, const double& z, const double& v, const double& sv, const double& sz, const double& st0, const std::string& type_ddm, const int& kmax, const double& delta);
-RcppExport SEXP _nbddm_ddm7_pdf_export(SEXP rtSEXP, SEXP xSEXP, SEXP aSEXP, SEXP t0SEXP, SEXP zSEXP, SEXP vSEXP, SEXP svSEXP, SEXP szSEXP, SEXP st0SEXP, SEXP type_ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP) {
+RcppExport SEXP _nsddm_ddm7_pdf_export(SEXP rtSEXP, SEXP xSEXP, SEXP aSEXP, SEXP t0SEXP, SEXP zSEXP, SEXP vSEXP, SEXP svSEXP, SEXP szSEXP, SEXP st0SEXP, SEXP type_ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -97,7 +97,7 @@ END_RCPP
 }
 // lan_load_weights_export
 void lan_load_weights_export(const std::string& path, const std::string& ddm);
-RcppExport SEXP _nbddm_lan_load_weights_export(SEXP pathSEXP, SEXP ddmSEXP) {
+RcppExport SEXP _nsddm_lan_load_weights_export(SEXP pathSEXP, SEXP ddmSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::string& >::type path(pathSEXP);
@@ -108,7 +108,7 @@ END_RCPP
 }
 // ddm4_lanll_weights_export
 arma::vec ddm4_lanll_weights_export(const arma::vec& rt, const arma::ivec& x, const double& a, const double& t0, const double& z, const double& v);
-RcppExport SEXP _nbddm_ddm4_lanll_weights_export(SEXP rtSEXP, SEXP xSEXP, SEXP aSEXP, SEXP t0SEXP, SEXP zSEXP, SEXP vSEXP) {
+RcppExport SEXP _nsddm_ddm4_lanll_weights_export(SEXP rtSEXP, SEXP xSEXP, SEXP aSEXP, SEXP t0SEXP, SEXP zSEXP, SEXP vSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -124,7 +124,7 @@ END_RCPP
 }
 // ddm4_lanll_grad_weights_rcpp
 Rcpp::List ddm4_lanll_grad_weights_rcpp(const arma::colvec& alpha, const arma::vec& rt, const arma::ivec& xs);
-RcppExport SEXP _nbddm_ddm4_lanll_grad_weights_rcpp(SEXP alphaSEXP, SEXP rtSEXP, SEXP xsSEXP) {
+RcppExport SEXP _nsddm_ddm4_lanll_grad_weights_rcpp(SEXP alphaSEXP, SEXP rtSEXP, SEXP xsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -137,7 +137,7 @@ END_RCPP
 }
 // ddm7_lanll_grad_weights_rcpp
 Rcpp::List ddm7_lanll_grad_weights_rcpp(const arma::colvec& alpha, const arma::vec& rt, const arma::ivec& xs);
-RcppExport SEXP _nbddm_ddm7_lanll_grad_weights_rcpp(SEXP alphaSEXP, SEXP rtSEXP, SEXP xsSEXP) {
+RcppExport SEXP _nsddm_ddm7_lanll_grad_weights_rcpp(SEXP alphaSEXP, SEXP rtSEXP, SEXP xsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -150,7 +150,7 @@ END_RCPP
 }
 // ddm_lan_nllfct_gradient_rcpp
 Rcpp::List ddm_lan_nllfct_gradient_rcpp(const arma::colvec& alpha, const arma::vec& rt, const arma::ivec& xs, const arma::vec& MU, const arma::mat& SIGMA, const arma::mat& invSIGMA, const std::string ddm);
-RcppExport SEXP _nbddm_ddm_lan_nllfct_gradient_rcpp(SEXP alphaSEXP, SEXP rtSEXP, SEXP xsSEXP, SEXP MUSEXP, SEXP SIGMASEXP, SEXP invSIGMASEXP, SEXP ddmSEXP) {
+RcppExport SEXP _nsddm_ddm_lan_nllfct_gradient_rcpp(SEXP alphaSEXP, SEXP rtSEXP, SEXP xsSEXP, SEXP MUSEXP, SEXP SIGMASEXP, SEXP invSIGMASEXP, SEXP ddmSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -167,7 +167,7 @@ END_RCPP
 }
 // ddm4_nllfct_export
 double ddm4_nllfct_export(const arma::colvec& alpha, const arma::vec& rt, const arma::ivec& xs, const std::string& type_alpha, const std::string& type_ddm, const int& kmax, const double& delta, bool use_lan);
-RcppExport SEXP _nbddm_ddm4_nllfct_export(SEXP alphaSEXP, SEXP rtSEXP, SEXP xsSEXP, SEXP type_alphaSEXP, SEXP type_ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP) {
+RcppExport SEXP _nsddm_ddm4_nllfct_export(SEXP alphaSEXP, SEXP rtSEXP, SEXP xsSEXP, SEXP type_alphaSEXP, SEXP type_ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -185,7 +185,7 @@ END_RCPP
 }
 // ddm4_random_llfct_rcpp
 double ddm4_random_llfct_rcpp(const arma::colvec& alpha, const arma::vec& rti, const arma::ivec& xsi, const arma::vec& MU, const arma::mat& SIGMA, const std::string& type_alpha, const std::string& type_ddm, const int& kmax, const double& delta, bool use_lan);
-RcppExport SEXP _nbddm_ddm4_random_llfct_rcpp(SEXP alphaSEXP, SEXP rtiSEXP, SEXP xsiSEXP, SEXP MUSEXP, SEXP SIGMASEXP, SEXP type_alphaSEXP, SEXP type_ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP) {
+RcppExport SEXP _nsddm_ddm4_random_llfct_rcpp(SEXP alphaSEXP, SEXP rtiSEXP, SEXP xsiSEXP, SEXP MUSEXP, SEXP SIGMASEXP, SEXP type_alphaSEXP, SEXP type_ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -205,7 +205,7 @@ END_RCPP
 }
 // ddm4_random_nllfct_rcpp
 double ddm4_random_nllfct_rcpp(const arma::colvec& alpha, const arma::vec& rti, const arma::ivec& xsi, const arma::vec& MU, const arma::mat& SIGMA, const std::string& type_alpha, const std::string& type_ddm, const int& kmax, const double& delta, bool use_lan);
-RcppExport SEXP _nbddm_ddm4_random_nllfct_rcpp(SEXP alphaSEXP, SEXP rtiSEXP, SEXP xsiSEXP, SEXP MUSEXP, SEXP SIGMASEXP, SEXP type_alphaSEXP, SEXP type_ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP) {
+RcppExport SEXP _nsddm_ddm4_random_nllfct_rcpp(SEXP alphaSEXP, SEXP rtiSEXP, SEXP xsiSEXP, SEXP MUSEXP, SEXP SIGMASEXP, SEXP type_alphaSEXP, SEXP type_ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -225,7 +225,7 @@ END_RCPP
 }
 // ddm7_nllfct_export
 double ddm7_nllfct_export(const arma::colvec& alpha, const arma::vec& rt, const arma::ivec& xs, const std::string& type_alpha, const std::string& type_ddm, const int& kmax, const double& delta, bool use_lan);
-RcppExport SEXP _nbddm_ddm7_nllfct_export(SEXP alphaSEXP, SEXP rtSEXP, SEXP xsSEXP, SEXP type_alphaSEXP, SEXP type_ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP) {
+RcppExport SEXP _nsddm_ddm7_nllfct_export(SEXP alphaSEXP, SEXP rtSEXP, SEXP xsSEXP, SEXP type_alphaSEXP, SEXP type_ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -243,7 +243,7 @@ END_RCPP
 }
 // ddm7_random_llfct_rcpp
 double ddm7_random_llfct_rcpp(const arma::colvec& alpha, const arma::vec& rti, const arma::ivec& xsi, const arma::vec& MU, const arma::mat& SIGMA, const std::string& type_alpha, const std::string& type_ddm, const int& kmax, const double& delta, bool use_lan);
-RcppExport SEXP _nbddm_ddm7_random_llfct_rcpp(SEXP alphaSEXP, SEXP rtiSEXP, SEXP xsiSEXP, SEXP MUSEXP, SEXP SIGMASEXP, SEXP type_alphaSEXP, SEXP type_ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP) {
+RcppExport SEXP _nsddm_ddm7_random_llfct_rcpp(SEXP alphaSEXP, SEXP rtiSEXP, SEXP xsiSEXP, SEXP MUSEXP, SEXP SIGMASEXP, SEXP type_alphaSEXP, SEXP type_ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -263,7 +263,7 @@ END_RCPP
 }
 // ddm7_random_nllfct_rcpp
 double ddm7_random_nllfct_rcpp(const arma::colvec& alpha, const arma::vec& rti, const arma::ivec& xsi, const arma::vec& MU, const arma::mat& SIGMA, const std::string& type_alpha, const std::string& type_ddm, const int& kmax, const double& delta, bool use_lan);
-RcppExport SEXP _nbddm_ddm7_random_nllfct_rcpp(SEXP alphaSEXP, SEXP rtiSEXP, SEXP xsiSEXP, SEXP MUSEXP, SEXP SIGMASEXP, SEXP type_alphaSEXP, SEXP type_ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP) {
+RcppExport SEXP _nsddm_ddm7_random_nllfct_rcpp(SEXP alphaSEXP, SEXP rtiSEXP, SEXP xsiSEXP, SEXP MUSEXP, SEXP SIGMASEXP, SEXP type_alphaSEXP, SEXP type_ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -283,7 +283,7 @@ END_RCPP
 }
 // ddm_agh_gradfct_singleperson_rcpp
 Rcpp::List ddm_agh_gradfct_singleperson_rcpp(const arma::vec& typevec, const arma::mat& posmat, const arma::vec& rti, const arma::ivec& xsi, const arma::mat& pts, const arma::vec& wgh, const arma::vec& MU, const arma::mat& L, const arma::mat& SIGMA, const arma::mat& invSIGMA, const std::string& type_alpha, const std::string& type_ddm, const std::string& ddm, const int& kmax, const double& delta, bool use_lan, std::string lan_path);
-RcppExport SEXP _nbddm_ddm_agh_gradfct_singleperson_rcpp(SEXP typevecSEXP, SEXP posmatSEXP, SEXP rtiSEXP, SEXP xsiSEXP, SEXP ptsSEXP, SEXP wghSEXP, SEXP MUSEXP, SEXP LSEXP, SEXP SIGMASEXP, SEXP invSIGMASEXP, SEXP type_alphaSEXP, SEXP type_ddmSEXP, SEXP ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP, SEXP lan_pathSEXP) {
+RcppExport SEXP _nsddm_ddm_agh_gradfct_singleperson_rcpp(SEXP typevecSEXP, SEXP posmatSEXP, SEXP rtiSEXP, SEXP xsiSEXP, SEXP ptsSEXP, SEXP wghSEXP, SEXP MUSEXP, SEXP LSEXP, SEXP SIGMASEXP, SEXP invSIGMASEXP, SEXP type_alphaSEXP, SEXP type_ddmSEXP, SEXP ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP, SEXP lan_pathSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -310,7 +310,7 @@ END_RCPP
 }
 // ddm_agh_gradfct_allpersons_rcpp
 Rcpp::List ddm_agh_gradfct_allpersons_rcpp(const arma::vec& typevec, const arma::mat& posmat, const arma::vec& rts, const arma::ivec& xs, const arma::imat& info, const int I, const arma::cube& pts_array, const arma::mat& wgh_mat, const arma::vec& MU, const arma::mat& L, const arma::mat& SIGMA, const arma::mat& invSIGMA, const std::string& type_ddm, const std::string& type_alpha, const std::string& ddm, const int& kmax, const double& delta, bool use_lan, std::string lan_path, int n_threads);
-RcppExport SEXP _nbddm_ddm_agh_gradfct_allpersons_rcpp(SEXP typevecSEXP, SEXP posmatSEXP, SEXP rtsSEXP, SEXP xsSEXP, SEXP infoSEXP, SEXP ISEXP, SEXP pts_arraySEXP, SEXP wgh_matSEXP, SEXP MUSEXP, SEXP LSEXP, SEXP SIGMASEXP, SEXP invSIGMASEXP, SEXP type_ddmSEXP, SEXP type_alphaSEXP, SEXP ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP, SEXP lan_pathSEXP, SEXP n_threadsSEXP) {
+RcppExport SEXP _nsddm_ddm_agh_gradfct_allpersons_rcpp(SEXP typevecSEXP, SEXP posmatSEXP, SEXP rtsSEXP, SEXP xsSEXP, SEXP infoSEXP, SEXP ISEXP, SEXP pts_arraySEXP, SEXP wgh_matSEXP, SEXP MUSEXP, SEXP LSEXP, SEXP SIGMASEXP, SEXP invSIGMASEXP, SEXP type_ddmSEXP, SEXP type_alphaSEXP, SEXP ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP, SEXP lan_pathSEXP, SEXP n_threadsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -340,7 +340,7 @@ END_RCPP
 }
 // ddm_agh_gradfct_allpersons_rcpp_save
 Rcpp::List ddm_agh_gradfct_allpersons_rcpp_save(const arma::vec& typevec, const arma::mat& posmat, const arma::vec& rts, const arma::ivec& xs, const arma::imat& info, const int I, const arma::cube& pts_array, const arma::mat& wgh_mat, const arma::vec& MU, const arma::mat& L, const arma::mat& SIGMA, const arma::mat& invSIGMA, const std::string& type_ddm, const std::string& type_alpha, const std::string& ddm, const int& kmax, const double& delta, bool use_lan, std::string lan_path, int n_threads);
-RcppExport SEXP _nbddm_ddm_agh_gradfct_allpersons_rcpp_save(SEXP typevecSEXP, SEXP posmatSEXP, SEXP rtsSEXP, SEXP xsSEXP, SEXP infoSEXP, SEXP ISEXP, SEXP pts_arraySEXP, SEXP wgh_matSEXP, SEXP MUSEXP, SEXP LSEXP, SEXP SIGMASEXP, SEXP invSIGMASEXP, SEXP type_ddmSEXP, SEXP type_alphaSEXP, SEXP ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP, SEXP lan_pathSEXP, SEXP n_threadsSEXP) {
+RcppExport SEXP _nsddm_ddm_agh_gradfct_allpersons_rcpp_save(SEXP typevecSEXP, SEXP posmatSEXP, SEXP rtsSEXP, SEXP xsSEXP, SEXP infoSEXP, SEXP ISEXP, SEXP pts_arraySEXP, SEXP wgh_matSEXP, SEXP MUSEXP, SEXP LSEXP, SEXP SIGMASEXP, SEXP invSIGMASEXP, SEXP type_ddmSEXP, SEXP type_alphaSEXP, SEXP ddmSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP, SEXP lan_pathSEXP, SEXP n_threadsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -370,27 +370,27 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_nbddm_ddm_chain_rcpp", (DL_FUNC) &_nbddm_ddm_chain_rcpp, 32},
-    {"_nbddm_ddm4_pdf_export", (DL_FUNC) &_nbddm_ddm4_pdf_export, 10},
-    {"_nbddm_ddm7_pdf_export", (DL_FUNC) &_nbddm_ddm7_pdf_export, 12},
-    {"_nbddm_lan_load_weights_export", (DL_FUNC) &_nbddm_lan_load_weights_export, 2},
-    {"_nbddm_ddm4_lanll_weights_export", (DL_FUNC) &_nbddm_ddm4_lanll_weights_export, 6},
-    {"_nbddm_ddm4_lanll_grad_weights_rcpp", (DL_FUNC) &_nbddm_ddm4_lanll_grad_weights_rcpp, 3},
-    {"_nbddm_ddm7_lanll_grad_weights_rcpp", (DL_FUNC) &_nbddm_ddm7_lanll_grad_weights_rcpp, 3},
-    {"_nbddm_ddm_lan_nllfct_gradient_rcpp", (DL_FUNC) &_nbddm_ddm_lan_nllfct_gradient_rcpp, 7},
-    {"_nbddm_ddm4_nllfct_export", (DL_FUNC) &_nbddm_ddm4_nllfct_export, 8},
-    {"_nbddm_ddm4_random_llfct_rcpp", (DL_FUNC) &_nbddm_ddm4_random_llfct_rcpp, 10},
-    {"_nbddm_ddm4_random_nllfct_rcpp", (DL_FUNC) &_nbddm_ddm4_random_nllfct_rcpp, 10},
-    {"_nbddm_ddm7_nllfct_export", (DL_FUNC) &_nbddm_ddm7_nllfct_export, 8},
-    {"_nbddm_ddm7_random_llfct_rcpp", (DL_FUNC) &_nbddm_ddm7_random_llfct_rcpp, 10},
-    {"_nbddm_ddm7_random_nllfct_rcpp", (DL_FUNC) &_nbddm_ddm7_random_nllfct_rcpp, 10},
-    {"_nbddm_ddm_agh_gradfct_singleperson_rcpp", (DL_FUNC) &_nbddm_ddm_agh_gradfct_singleperson_rcpp, 17},
-    {"_nbddm_ddm_agh_gradfct_allpersons_rcpp", (DL_FUNC) &_nbddm_ddm_agh_gradfct_allpersons_rcpp, 20},
-    {"_nbddm_ddm_agh_gradfct_allpersons_rcpp_save", (DL_FUNC) &_nbddm_ddm_agh_gradfct_allpersons_rcpp_save, 20},
+    {"_nsddm_ddm_chain_rcpp", (DL_FUNC) &_nsddm_ddm_chain_rcpp, 32},
+    {"_nsddm_ddm4_pdf_export", (DL_FUNC) &_nsddm_ddm4_pdf_export, 10},
+    {"_nsddm_ddm7_pdf_export", (DL_FUNC) &_nsddm_ddm7_pdf_export, 12},
+    {"_nsddm_lan_load_weights_export", (DL_FUNC) &_nsddm_lan_load_weights_export, 2},
+    {"_nsddm_ddm4_lanll_weights_export", (DL_FUNC) &_nsddm_ddm4_lanll_weights_export, 6},
+    {"_nsddm_ddm4_lanll_grad_weights_rcpp", (DL_FUNC) &_nsddm_ddm4_lanll_grad_weights_rcpp, 3},
+    {"_nsddm_ddm7_lanll_grad_weights_rcpp", (DL_FUNC) &_nsddm_ddm7_lanll_grad_weights_rcpp, 3},
+    {"_nsddm_ddm_lan_nllfct_gradient_rcpp", (DL_FUNC) &_nsddm_ddm_lan_nllfct_gradient_rcpp, 7},
+    {"_nsddm_ddm4_nllfct_export", (DL_FUNC) &_nsddm_ddm4_nllfct_export, 8},
+    {"_nsddm_ddm4_random_llfct_rcpp", (DL_FUNC) &_nsddm_ddm4_random_llfct_rcpp, 10},
+    {"_nsddm_ddm4_random_nllfct_rcpp", (DL_FUNC) &_nsddm_ddm4_random_nllfct_rcpp, 10},
+    {"_nsddm_ddm7_nllfct_export", (DL_FUNC) &_nsddm_ddm7_nllfct_export, 8},
+    {"_nsddm_ddm7_random_llfct_rcpp", (DL_FUNC) &_nsddm_ddm7_random_llfct_rcpp, 10},
+    {"_nsddm_ddm7_random_nllfct_rcpp", (DL_FUNC) &_nsddm_ddm7_random_nllfct_rcpp, 10},
+    {"_nsddm_ddm_agh_gradfct_singleperson_rcpp", (DL_FUNC) &_nsddm_ddm_agh_gradfct_singleperson_rcpp, 17},
+    {"_nsddm_ddm_agh_gradfct_allpersons_rcpp", (DL_FUNC) &_nsddm_ddm_agh_gradfct_allpersons_rcpp, 20},
+    {"_nsddm_ddm_agh_gradfct_allpersons_rcpp_save", (DL_FUNC) &_nsddm_ddm_agh_gradfct_allpersons_rcpp_save, 20},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_nbddm(DllInfo *dll) {
+RcppExport void R_init_nsddm(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

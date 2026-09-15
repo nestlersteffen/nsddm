@@ -2,70 +2,70 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 ddm_chain_rcpp <- function(rts, xs, info, I, K, alpha, c_MUa, c_SIGa, m, invM, S0, nu0, a_d, biter, burnin, use_adapt_dao, tau2, epsilon, pi_mix, pi_mix1, pi_mix2, pi_mix3, R, method, type_alpha, type_proposal, ddm, verbose, kmax = 5000L, delta = 1e-29, use_lan = FALSE, lan_path = "") {
-    .Call(`_nbddm_ddm_chain_rcpp`, rts, xs, info, I, K, alpha, c_MUa, c_SIGa, m, invM, S0, nu0, a_d, biter, burnin, use_adapt_dao, tau2, epsilon, pi_mix, pi_mix1, pi_mix2, pi_mix3, R, method, type_alpha, type_proposal, ddm, verbose, kmax, delta, use_lan, lan_path)
+    .Call(`_nsddm_ddm_chain_rcpp`, rts, xs, info, I, K, alpha, c_MUa, c_SIGa, m, invM, S0, nu0, a_d, biter, burnin, use_adapt_dao, tau2, epsilon, pi_mix, pi_mix1, pi_mix2, pi_mix3, R, method, type_alpha, type_proposal, ddm, verbose, kmax, delta, use_lan, lan_path)
 }
 
 ddm4_pdf_export <- function(rt, x, a, t0, w, z, v, type_ddm, kmax, delta) {
-    .Call(`_nbddm_ddm4_pdf_export`, rt, x, a, t0, w, z, v, type_ddm, kmax, delta)
+    .Call(`_nsddm_ddm4_pdf_export`, rt, x, a, t0, w, z, v, type_ddm, kmax, delta)
 }
 
 ddm7_pdf_export <- function(rt, x, a, t0, z, v, sv, sz, st0, type_ddm, kmax, delta) {
-    .Call(`_nbddm_ddm7_pdf_export`, rt, x, a, t0, z, v, sv, sz, st0, type_ddm, kmax, delta)
+    .Call(`_nsddm_ddm7_pdf_export`, rt, x, a, t0, z, v, sv, sz, st0, type_ddm, kmax, delta)
 }
 
 lan_load_weights_export <- function(path, ddm) {
-    invisible(.Call(`_nbddm_lan_load_weights_export`, path, ddm))
+    invisible(.Call(`_nsddm_lan_load_weights_export`, path, ddm))
 }
 
 ddm4_lanll_weights_export <- function(rt, x, a, t0, z, v) {
-    .Call(`_nbddm_ddm4_lanll_weights_export`, rt, x, a, t0, z, v)
+    .Call(`_nsddm_ddm4_lanll_weights_export`, rt, x, a, t0, z, v)
 }
 
 ddm4_lanll_grad_weights_rcpp <- function(alpha, rt, xs) {
-    .Call(`_nbddm_ddm4_lanll_grad_weights_rcpp`, alpha, rt, xs)
+    .Call(`_nsddm_ddm4_lanll_grad_weights_rcpp`, alpha, rt, xs)
 }
 
 ddm7_lanll_grad_weights_rcpp <- function(alpha, rt, xs) {
-    .Call(`_nbddm_ddm7_lanll_grad_weights_rcpp`, alpha, rt, xs)
+    .Call(`_nsddm_ddm7_lanll_grad_weights_rcpp`, alpha, rt, xs)
 }
 
 ddm_lan_nllfct_gradient_rcpp <- function(alpha, rt, xs, MU, SIGMA, invSIGMA, ddm = "four") {
-    .Call(`_nbddm_ddm_lan_nllfct_gradient_rcpp`, alpha, rt, xs, MU, SIGMA, invSIGMA, ddm)
+    .Call(`_nsddm_ddm_lan_nllfct_gradient_rcpp`, alpha, rt, xs, MU, SIGMA, invSIGMA, ddm)
 }
 
 ddm4_nllfct_export <- function(alpha, rt, xs, type_alpha = "dao", type_ddm = "std", kmax = 5000L, delta = 1e-29, use_lan = FALSE) {
-    .Call(`_nbddm_ddm4_nllfct_export`, alpha, rt, xs, type_alpha, type_ddm, kmax, delta, use_lan)
+    .Call(`_nsddm_ddm4_nllfct_export`, alpha, rt, xs, type_alpha, type_ddm, kmax, delta, use_lan)
 }
 
 ddm4_random_llfct_rcpp <- function(alpha, rti, xsi, MU, SIGMA, type_alpha = "dao", type_ddm = "std", kmax = 5000L, delta = 1e-29, use_lan = FALSE) {
-    .Call(`_nbddm_ddm4_random_llfct_rcpp`, alpha, rti, xsi, MU, SIGMA, type_alpha, type_ddm, kmax, delta, use_lan)
+    .Call(`_nsddm_ddm4_random_llfct_rcpp`, alpha, rti, xsi, MU, SIGMA, type_alpha, type_ddm, kmax, delta, use_lan)
 }
 
 ddm4_random_nllfct_rcpp <- function(alpha, rti, xsi, MU, SIGMA, type_alpha = "dao", type_ddm = "std", kmax = 5000L, delta = 1e-29, use_lan = FALSE) {
-    .Call(`_nbddm_ddm4_random_nllfct_rcpp`, alpha, rti, xsi, MU, SIGMA, type_alpha, type_ddm, kmax, delta, use_lan)
+    .Call(`_nsddm_ddm4_random_nllfct_rcpp`, alpha, rti, xsi, MU, SIGMA, type_alpha, type_ddm, kmax, delta, use_lan)
 }
 
 ddm7_nllfct_export <- function(alpha, rt, xs, type_alpha = "dao", type_ddm = "std", kmax = 5000L, delta = 1e-29, use_lan = FALSE) {
-    .Call(`_nbddm_ddm7_nllfct_export`, alpha, rt, xs, type_alpha, type_ddm, kmax, delta, use_lan)
+    .Call(`_nsddm_ddm7_nllfct_export`, alpha, rt, xs, type_alpha, type_ddm, kmax, delta, use_lan)
 }
 
 ddm7_random_llfct_rcpp <- function(alpha, rti, xsi, MU, SIGMA, type_alpha = "dao", type_ddm = "std", kmax = 5000L, delta = 1e-29, use_lan = FALSE) {
-    .Call(`_nbddm_ddm7_random_llfct_rcpp`, alpha, rti, xsi, MU, SIGMA, type_alpha, type_ddm, kmax, delta, use_lan)
+    .Call(`_nsddm_ddm7_random_llfct_rcpp`, alpha, rti, xsi, MU, SIGMA, type_alpha, type_ddm, kmax, delta, use_lan)
 }
 
 ddm7_random_nllfct_rcpp <- function(alpha, rti, xsi, MU, SIGMA, type_alpha = "dao", type_ddm = "std", kmax = 5000L, delta = 1e-29, use_lan = FALSE) {
-    .Call(`_nbddm_ddm7_random_nllfct_rcpp`, alpha, rti, xsi, MU, SIGMA, type_alpha, type_ddm, kmax, delta, use_lan)
+    .Call(`_nsddm_ddm7_random_nllfct_rcpp`, alpha, rti, xsi, MU, SIGMA, type_alpha, type_ddm, kmax, delta, use_lan)
 }
 
 ddm_agh_gradfct_singleperson_rcpp <- function(typevec, posmat, rti, xsi, pts, wgh, MU, L, SIGMA, invSIGMA, type_alpha = "dao", type_ddm = "std", ddm = "four", kmax = 5000L, delta = 1e-29, use_lan = FALSE, lan_path = "") {
-    .Call(`_nbddm_ddm_agh_gradfct_singleperson_rcpp`, typevec, posmat, rti, xsi, pts, wgh, MU, L, SIGMA, invSIGMA, type_alpha, type_ddm, ddm, kmax, delta, use_lan, lan_path)
+    .Call(`_nsddm_ddm_agh_gradfct_singleperson_rcpp`, typevec, posmat, rti, xsi, pts, wgh, MU, L, SIGMA, invSIGMA, type_alpha, type_ddm, ddm, kmax, delta, use_lan, lan_path)
 }
 
 ddm_agh_gradfct_allpersons_rcpp <- function(typevec, posmat, rts, xs, info, I, pts_array, wgh_mat, MU, L, SIGMA, invSIGMA, type_ddm = "std", type_alpha = "dao", ddm = "four", kmax = 5000L, delta = 1e-29, use_lan = FALSE, lan_path = "", n_threads = 0L) {
-    .Call(`_nbddm_ddm_agh_gradfct_allpersons_rcpp`, typevec, posmat, rts, xs, info, I, pts_array, wgh_mat, MU, L, SIGMA, invSIGMA, type_ddm, type_alpha, ddm, kmax, delta, use_lan, lan_path, n_threads)
+    .Call(`_nsddm_ddm_agh_gradfct_allpersons_rcpp`, typevec, posmat, rts, xs, info, I, pts_array, wgh_mat, MU, L, SIGMA, invSIGMA, type_ddm, type_alpha, ddm, kmax, delta, use_lan, lan_path, n_threads)
 }
 
 ddm_agh_gradfct_allpersons_rcpp_save <- function(typevec, posmat, rts, xs, info, I, pts_array, wgh_mat, MU, L, SIGMA, invSIGMA, type_ddm = "std", type_alpha = "dao", ddm = "four", kmax = 5000L, delta = 1e-29, use_lan = FALSE, lan_path = "", n_threads = 0L) {
-    .Call(`_nbddm_ddm_agh_gradfct_allpersons_rcpp_save`, typevec, posmat, rts, xs, info, I, pts_array, wgh_mat, MU, L, SIGMA, invSIGMA, type_ddm, type_alpha, ddm, kmax, delta, use_lan, lan_path, n_threads)
+    .Call(`_nsddm_ddm_agh_gradfct_allpersons_rcpp_save`, typevec, posmat, rts, xs, info, I, pts_array, wgh_mat, MU, L, SIGMA, invSIGMA, type_ddm, type_alpha, ddm, kmax, delta, use_lan, lan_path, n_threads)
 }
 
