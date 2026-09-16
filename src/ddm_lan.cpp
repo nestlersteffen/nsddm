@@ -5,9 +5,9 @@ using namespace Rcpp;
 using namespace arma;
 
 arma::vec ddm4_lanll_dnn_rcpp( const arma::vec& rt, const arma::ivec& x, const double& a, 
-     const double& t0, const double& z, const double& v, const int& K, SEXP dnn ) {
+     const double& t0, const double& z, const double& v, SEXP dnn ) {
      Rcpp::Environment myEnv = Rcpp::Environment::global_env();
-     Rcpp::Function myFun = myEnv["lan_loglik"];
+     Rcpp::Function myFun = myEnv["ddm4_lan_llfct_dnn"];
      Rcpp::NumericVector result = myFun( 
          Rcpp::Named("dnn", dnn),
          Rcpp::Named("a",   a),
@@ -15,10 +15,19 @@ arma::vec ddm4_lanll_dnn_rcpp( const arma::vec& rt, const arma::ivec& x, const d
          Rcpp::Named("t0",  t0),
          Rcpp::Named("z",   z),
          Rcpp::Named("rt",  rt),
-         Rcpp::Named("xs",  x),
-         Rcpp::Named("K",  K)
+         Rcpp::Named("xs",  x)
      );
      return Rcpp::as<arma::vec>( result );
+}
+
+SEXP lan_load_dnn_rcpp( const std::string& ddm ) {
+
+    Rcpp::Environment myEnv = Rcpp::Environment::global_env();
+    Rcpp::Function myFun = myEnv["ddm_load_dnn"];
+    Rcpp::RObject result = myFun( 
+        Rcpp::Named("ddm", ddm)
+    );
+    return result;
 }
 
 void lan_load_weights_rcpp( const std::string& path, const std::string& ddm ) {
@@ -141,6 +150,55 @@ arma::vec ddm4_lanll_weights_batch_rcpp( const arma::vec& rt, const arma::ivec& 
     out.each_row() += b4.t();   // linear, keine Aktivierung
     
     return out.col(0);   // (n x 1) -> Vektor der Länge n
+}
+
+arma::vec ddm4_lanll_weights_grad_batch_rcpp( const arma::vec& rt, const arma::ivec& x,
+    const double& a, const double& t0, const double& z, const double& v, 
+    const int& idx ) 
+{
+    
+    int n = rt.size();
+
+    // Rcpp::Rcout << "Hier bin ich:" << n << std::endl;
+    
+    // Input-Matrix bauen: (n x 6)
+    arma::mat X(n, 6);
+    X.col(0).fill(a);
+    X.col(1).fill(v);
+    X.col(2).fill(t0);
+    X.col(3).fill(z);
+    X.col(4) = arma::conv_to<arma::vec>::from(x);
+    X.col(5) = rt;
+    
+    // Forward-Pass::
+    arma::mat H1 = X * W1;
+    H1.each_row() += b1.t();
+    H1 = arma::tanh(H1);
+    
+    arma::mat H2 = H1 * W2;
+    H2.each_row() += b2.t();
+    H2 = arma::tanh(H2);
+    
+    arma::mat H3 = H2 * W3;
+    H3.each_row() += b3.t();
+    H3 = arma::tanh(H3);
+    
+    arma::mat out = H3 * W4;
+    out.each_row() += b4.t();   // linear, keine Aktivierung
+    
+    // Backward-Pass:
+    arma::mat D4 = arma::ones(n, 1);                              
+    arma::mat D3 = (D4 * W4.t()) % (1.0 - arma::square(H3));
+    arma::mat D2 = (D3 * W3.t()) % (1.0 - arma::square(H2));
+    arma::mat D1 = (D2 * W2.t()) % (1.0 - arma::square(H1));
+    arma::mat grad_input = D1 * W1.t();
+
+    //- all for the output:
+    arma::vec result(1 + idx);
+    result(0) = arma::accu( out, 0);
+    result.subvec(1, idx) = arma::sum( grad_input.cols(0,idx-1 ), 0 ).t();
+    return result;
+
 }
 
 arma::vec ddm7_lanll_weights_rcpp( const arma::vec& rt, const arma::ivec& x,

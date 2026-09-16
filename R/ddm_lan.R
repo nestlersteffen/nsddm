@@ -98,17 +98,17 @@ lan_forward_and_backward <- function( input, weights, idx=7 )
 }
 
 #- wrappers for lan log-lik that uses the weight matrices:
-ddm4_lanll_weights <- function( weights, a, v, t0, z, rt, xs, K ) 
+ddm4_lanll_weights <- function( weights, a, v, t0, z, rt, xs ) 
 {
-    tmpMat <- matrix( c(a, v, t0, z), nrow=length(rt), ncol=K, byrow=TRUE)
+    tmpMat <- matrix( c(a, v, t0, z), nrow=length(rt), ncol=4, byrow=TRUE)
     tmpMat <- cbind( tmpMat, xs, rt)
     ll <- apply( tmpMat, 1, function(row) lan_forward(row, weights))
     return( sum( as.vector(ll) ) )
 }
 
-ddm7_lanll_weights <- function( weights, a, v, t0, z, sv, sz, st0, rt, xs, K ) 
+ddm7_lanll_weights <- function( weights, a, v, t0, z, sv, sz, st0, rt, xs ) 
 {
-    tmpMat <- matrix( c(a, v, t0, z, sv, sz, st0), nrow=length(rt), ncol=K, byrow=TRUE)
+    tmpMat <- matrix( c(a, v, t0, z, sv, sz, st0), nrow=length(rt), ncol=7, byrow=TRUE)
     tmpMat <- cbind( tmpMat, xs, rt)
     ll <- apply( tmpMat, 1, function(row) lan_forward(row, weights))
     return( sum( as.vector(ll) ) )
@@ -187,7 +187,10 @@ ddm4_lan_llfct_dnn <- function( dnn=NULL, rt=NULL, xs=NULL, v=NULL, a=NULL, z=NU
     n <- length( rt)
     #- make temporary data matrix:
     tmpMat <- matrix(0, nrow = n, ncol = 6)
-    tmpMat[,1] <- a; tmpMat[,2] <- v; tmpMat[, 3] <- t0; tmpMat[, 4] <- z
+    tmpMat[,1] <- a
+    tmpMat[,2] <- v
+    tmpMat[,3] <- t0
+    tmpMat[,4] <- z
     tmpMat[,5] <- xs
     tmpMat[,6] <- rt
     #- compute ll values:

@@ -6,11 +6,9 @@ using namespace arma;
 
 //[[Rcpp::export]]
 double ddm4_nllfct_export( const arma::colvec& alpha, const arma::vec& rt, 
-    const arma::ivec& xs, const std::string& type_alpha = "dao",
-    const std::string& type_ddm = "std", const int& kmax = 5000,
-    const double& delta = 1e-29, bool use_lan = false )
+    const arma::ivec& xs, const std::string& type_alpha, const std::string& type_ddm, 
+    const int& kmax, const double& delta, bool use_lan )
 {
-    
     return -1*ddm4_logLdata_rcpp( alpha, rt, xs, type_alpha, type_ddm, kmax, delta, use_lan );
 }
 
@@ -18,10 +16,8 @@ double ddm4_nllfct_export( const arma::colvec& alpha, const arma::vec& rt,
 double ddm4_random_llfct_rcpp( const arma::colvec& alpha, 
     const arma::vec& rti, const arma::ivec& xsi, 
     const arma::vec& MU, const arma::mat& SIGMA,
-    const std::string& type_alpha = "dao",
-    const std::string& type_ddm = "std",
-    const int& kmax = 5000, const double& delta = 1e-29,
-    bool use_lan = false )
+    const std::string& type_alpha, const std::string& type_ddm,
+    const int& kmax, const double& delta, bool use_lan )
 {
 
     //- get ll value of the data:
@@ -41,19 +37,16 @@ double ddm4_random_llfct_rcpp( const arma::colvec& alpha,
 double ddm4_random_nllfct_rcpp( const arma::colvec& alpha, 
     const arma::vec& rti, const arma::ivec& xsi, 
     const arma::vec& MU, const arma::mat& SIGMA,
-    const std::string& type_alpha = "dao",
-    const std::string& type_ddm = "std",
-    const int& kmax = 5000, const double& delta = 1e-29,
-    bool use_lan = false )
+    const std::string& type_alpha, const std::string& type_ddm,
+    const int& kmax, const double& delta, bool use_lan )
 {
     return -1*ddm4_random_llfct_rcpp(alpha, rti, xsi, MU, SIGMA, type_alpha, type_ddm, kmax, delta, use_lan); 
 }
 
 //[[Rcpp::export]]
 double ddm7_nllfct_export( const arma::colvec& alpha, const arma::vec& rt, 
-    const arma::ivec& xs, const std::string& type_alpha = "dao",
-    const std::string& type_ddm = "std", const int& kmax = 5000,
-    const double& delta = 1e-29, bool use_lan = false )
+    const arma::ivec& xs, const std::string& type_alpha, const std::string& type_ddm,
+    const int& kmax, const double& delta, bool use_lan )
 {
     
     return -1*ddm7_logLdata_rcpp( alpha, rt, xs, type_alpha, type_ddm, kmax, delta, use_lan );
@@ -63,11 +56,8 @@ double ddm7_nllfct_export( const arma::colvec& alpha, const arma::vec& rt,
 double ddm7_random_llfct_rcpp( const arma::colvec& alpha, 
     const arma::vec& rti, const arma::ivec& xsi, 
     const arma::vec& MU, const arma::mat& SIGMA,
-    const std::string& type_alpha = "dao",
-    const std::string& type_ddm = "std",
-    const int& kmax = 5000,
-    const double& delta = 1e-29,
-    bool use_lan = false )
+    const std::string& type_alpha, const std::string& type_ddm,
+    const int& kmax, const double& delta, bool use_lan )
 {
 
     //- get ll value of the data:
@@ -87,11 +77,8 @@ double ddm7_random_llfct_rcpp( const arma::colvec& alpha,
 double ddm7_random_nllfct_rcpp( const arma::colvec& alpha, 
     const arma::vec& rti, const arma::ivec& xsi, 
     const arma::vec& MU, const arma::mat& SIGMA,
-    const std::string& type_alpha = "dao",
-    const std::string& type_ddm = "std",
-    const int& kmax = 5000,
-    const double& delta = 1e-29,
-    bool use_lan = false )
+    const std::string& type_alpha, const std::string& type_ddm,
+    const int& kmax, const double& delta, bool use_lan )
 {
     return -1*ddm7_random_llfct_rcpp(alpha, rti, xsi, MU, SIGMA, type_alpha, type_ddm, kmax, delta, use_lan); 
 }
@@ -106,12 +93,8 @@ Rcpp::List ddm_agh_gradfct_singleperson_rcpp(
     const arma::mat& L, 
     const arma::mat& SIGMA,
     const arma::mat& invSIGMA,
-    const std::string& type_alpha="dao",
-    const std::string& type_ddm="std",
-    const std::string& ddm="four",
-    const int& kmax = 5000,
-    const double& delta = 1e-29,
-    bool use_lan = false, std::string lan_path = "" )
+    const std::string& type_alpha, const std::string& type_ddm, const std::string& ddm,
+    const int& kmax, const double& delta, bool use_lan, std::string lan_path )
 {
     
     //- should we load the lan-weights?

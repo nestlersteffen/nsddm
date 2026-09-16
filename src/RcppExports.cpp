@@ -106,6 +106,17 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// lan_load_dnn_export
+SEXP lan_load_dnn_export(const std::string& ddm);
+RcppExport SEXP _nsddm_lan_load_dnn_export(SEXP ddmSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::string& >::type ddm(ddmSEXP);
+    rcpp_result_gen = Rcpp::wrap(lan_load_dnn_export(ddm));
+    return rcpp_result_gen;
+END_RCPP
+}
 // ddm4_lanll_weights_export
 arma::vec ddm4_lanll_weights_export(const arma::vec& rt, const arma::ivec& x, const double& a, const double& t0, const double& z, const double& v);
 RcppExport SEXP _nsddm_ddm4_lanll_weights_export(SEXP rtSEXP, SEXP xSEXP, SEXP aSEXP, SEXP t0SEXP, SEXP zSEXP, SEXP vSEXP) {
@@ -119,6 +130,22 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const double& >::type z(zSEXP);
     Rcpp::traits::input_parameter< const double& >::type v(vSEXP);
     rcpp_result_gen = Rcpp::wrap(ddm4_lanll_weights_export(rt, x, a, t0, z, v));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ddm4_lanll_weights_batch_export
+arma::vec ddm4_lanll_weights_batch_export(const arma::vec& rt, const arma::ivec& x, const double& a, const double& t0, const double& z, const double& v);
+RcppExport SEXP _nsddm_ddm4_lanll_weights_batch_export(SEXP rtSEXP, SEXP xSEXP, SEXP aSEXP, SEXP t0SEXP, SEXP zSEXP, SEXP vSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::vec& >::type rt(rtSEXP);
+    Rcpp::traits::input_parameter< const arma::ivec& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const double& >::type a(aSEXP);
+    Rcpp::traits::input_parameter< const double& >::type t0(t0SEXP);
+    Rcpp::traits::input_parameter< const double& >::type z(zSEXP);
+    Rcpp::traits::input_parameter< const double& >::type v(vSEXP);
+    rcpp_result_gen = Rcpp::wrap(ddm4_lanll_weights_batch_export(rt, x, a, t0, z, v));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -374,7 +401,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_nsddm_ddm4_pdf_export", (DL_FUNC) &_nsddm_ddm4_pdf_export, 10},
     {"_nsddm_ddm7_pdf_export", (DL_FUNC) &_nsddm_ddm7_pdf_export, 12},
     {"_nsddm_lan_load_weights_export", (DL_FUNC) &_nsddm_lan_load_weights_export, 2},
+    {"_nsddm_lan_load_dnn_export", (DL_FUNC) &_nsddm_lan_load_dnn_export, 1},
     {"_nsddm_ddm4_lanll_weights_export", (DL_FUNC) &_nsddm_ddm4_lanll_weights_export, 6},
+    {"_nsddm_ddm4_lanll_weights_batch_export", (DL_FUNC) &_nsddm_ddm4_lanll_weights_batch_export, 6},
     {"_nsddm_ddm4_lanll_grad_weights_rcpp", (DL_FUNC) &_nsddm_ddm4_lanll_grad_weights_rcpp, 3},
     {"_nsddm_ddm7_lanll_grad_weights_rcpp", (DL_FUNC) &_nsddm_ddm7_lanll_grad_weights_rcpp, 3},
     {"_nsddm_ddm_lan_nllfct_gradient_rcpp", (DL_FUNC) &_nsddm_ddm_lan_nllfct_gradient_rcpp, 7},

@@ -2,7 +2,7 @@
 #--- function to update person-specific alphas 
 
 ddm_pmwg_step <- function( c_alpha=NULL, c_logData=NULL, rti=NULL, xsi=NULL, K=NULL,
-    c_MUa=NULL, c_SIGa=NULL, mu_hat=NULL, sigma_hat=NULL, args=NULL, weights=NULL, ddm_fun=NULL )
+    c_MUa=NULL, c_SIGa=NULL, mu_hat=NULL, sigma_hat=NULL, args=NULL, weights=NULL, dnn=NULL, ddm_fun=NULL )
 {
     
     #- collect some args:
@@ -51,7 +51,7 @@ ddm_pmwg_step <- function( c_alpha=NULL, c_logData=NULL, rti=NULL, xsi=NULL, K=N
         if ( r == 1 ) {
             log_liks[r] <- c_logData
         } else {
-            log_liks[r] <- ddm_fun( us=particles[r,], rt=rti, xs=xsi, args=args, weights=weights )
+            log_liks[r] <- ddm_fun( us=particles[r,], rt=rti, xs=xsi, args=args, weights=weights, dnn=dnn )
         }
         
         #- log-prior:
@@ -116,7 +116,7 @@ ddm_generate_alphai <- function( c_alpha=NULL, sigma=NULL, MU=NULL, SIGMA=NULL, 
 }
 
 ddm_standard_step <- function( c_alpha=NULL, c_logData=NULL, rti=NULL, xsi=NULL, 
-    K=NULL, c_MUa=NULL, c_SIGa=NULL, args=NULL, weights=NULL, ddm_fun=NULL )
+    K=NULL, c_MUa=NULL, c_SIGa=NULL, args=NULL, weights=NULL, dnn=NULL, ddm_fun=NULL )
 {
 
     #- collect some args:
@@ -135,7 +135,7 @@ ddm_standard_step <- function( c_alpha=NULL, c_logData=NULL, rti=NULL, xsi=NULL,
 
     #- step 3: compute all things for posterior of the proposal:
     p_logPrior <- ddm_logPrior( alphai=p_alpha, MU=c_MUa, SIGMA=c_SIGa )
-    p_logData  <- ddm_fun( us=p_alpha, rt=rti, xs=xsi, args=args, weights=weights )
+    p_logData  <- ddm_fun( us=p_alpha, rt=rti, xs=xsi, args=args, weights=weights, dnn=dnn )
     
     #- accept proposal?
     if ( args$bayes_list$type_proposal == "mixture" ) {

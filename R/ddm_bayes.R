@@ -32,7 +32,11 @@ ddm_random_bayes <- function( data_list=NULL, parm_table=NULL, args=NULL,
 
             #- load weights in case we need them:
             if ( args$use_lan ) {
-                weights <- ddm_load_weights( ddm=ddm )
+                if ( args$use_tf ) {
+                    dnn <- ddm_load_dnn( ddm=ddm ) 
+                } else {
+                    weights <- ddm_load_weights( ddm=ddm )
+                }
             }
 
             #- load function for the correct ddm:
@@ -85,7 +89,7 @@ ddm_random_bayes <- function( data_list=NULL, parm_table=NULL, args=NULL,
                 rti <- rts[(idx+1):(idx+ni)]
                 xsi <- xs[(idx+1):(idx+ni)]
                 #- compute data densities:
-                c_logData[i] <- ddm_fun( us=alpha[i,], rt=rti, xs=xsi, args=args, weights=weights )
+                c_logData[i] <- ddm_fun( us=alpha[i,], rt=rti, xs=xsi, args=args, weights=weights, dnn=dnn )
                 #- increase idx:
                 idx <- idx + ni
             }
@@ -149,7 +153,7 @@ ddm_random_bayes <- function( data_list=NULL, parm_table=NULL, args=NULL,
                     res_i <- ddm_step( c_alpha=alpha[i,], c_logData=c_logData[i], 
                         rti=rti, xs=xsi, K=K, c_MUa=MUa[nn,], c_SIGa=c_SIGa, 
                         mu_hat=mu_hat, sigma_hat=sigma_hat,
-                        args=args, weights=weights, ddm_fun=ddm_fun )
+                        args=args, weights=weights, dnn=dnn, ddm_fun=ddm_fun )
 
                     #- store draw for adaptation after burnin:
                     if ( args$bayes_list$use_adapt_dao ) {

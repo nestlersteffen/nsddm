@@ -9,6 +9,7 @@ ddm(
   xs = NULL,
   estimator = "ML",
   control = ddm_args(),
+  verbose = TRUE,
   debug = FALSE
 )
 }
@@ -20,6 +21,8 @@ ddm(
 \item{estimator}{A string indicating use of "ML" or "Bayes", defaults to "ML"}
 
 \item{control}{A list of control arguments}
+
+\item{verbose}{A boolean control argument to see the optimization history, defaults to TRUE}
 
 \item{debug}{A control argument for debugging, for internal use only}
 }

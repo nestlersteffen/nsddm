@@ -404,7 +404,13 @@ double ddm7_logLdata_rcpp( const arma::colvec& alpha,
     //* compute densities:
     arma::vec log_densities;
     if ( use_lan ) {
-        log_densities = ddm7_lanll_weights_rcpp( rt, x, a, t0, z, v, sv, sz, st0 );
+        // if ( use_tf ) {
+        //     Rcpp::Rcout << "Dnn" << std::endl;
+        //     // log_densities = ddm7_lanll_dnn_rcpp( rt, x, a, t0, z, v, dnn ); 
+        // } else {
+            Rcpp::Rcout << "Lan" << std::endl;
+            log_densities = ddm7_lanll_weights_rcpp( rt, x, a, t0, z, v, sv, sz, st0 );
+        // }
     } else {
         // z immer übergeben, w weglassen (NA_REAL ist Default)
         arma::vec densities = ddm7_pdf_rcpp( rt, x, a, t0, z, v, sv, sz, st0, type_ddm, kmax, delta ) ;

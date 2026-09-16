@@ -123,6 +123,7 @@ ddm_args <- function(
         use_tmb_modes = use_tmb_modes,
         use_rcpp = use_rcpp, 
         use_lan = use_lan,
+        use_tf = use_tf,
         kmax = kmax,
         delta = delta,
         maxlik_list = maxlik_list,

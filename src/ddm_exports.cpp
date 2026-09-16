@@ -15,16 +15,17 @@ using namespace arma;
 
 // [[Rcpp::export]]
 arma::vec ddm4_pdf_export( const arma::vec& rt, const arma::ivec& x,
-    const double& a, const double& t0, const double& w, const double& z,
-    const double& v, const std::string& type_ddm, const int& kmax, const double& delta ) {
+    const double& a, const double& t0, const double& w = NA_REAL, const double& z = NA_REAL,
+    const double& v = 0, const std::string& type_ddm = "std", const int& kmax = 5000, 
+    const double& delta = 1e-29 ) {
     return ddm4_pdf_rcpp( rt, x, a, t0, w, z, v, type_ddm, kmax, delta );
 }
 
 // [[Rcpp::export]]
 arma::vec ddm7_pdf_export( const arma::vec& rt, const arma::ivec& x,
     const double& a, const double& t0, const double& z, const double& v,
-    const double& sv, const double& sz, const double& st0, const std::string& type_ddm,
-    const int& kmax, const double& delta ) {
+    const double& sv, const double& sz, const double& st0, const std::string& type_ddm = "std", 
+    const int& kmax = 5000, const double& delta = 1e-29 ) {
     return ddm7_pdf_rcpp( rt, x, a, t0, z, v, sv, sz, st0, type_ddm, kmax, delta );
 }
 
@@ -34,16 +35,21 @@ void lan_load_weights_export( const std::string& path, const std::string& ddm ) 
 }
 
 // [[Rcpp::export]]
+SEXP lan_load_dnn_export( const std::string& ddm ) {
+    return lan_load_dnn_rcpp( ddm );
+}
+
+// [[Rcpp::export]]
 arma::vec ddm4_lanll_weights_export( const arma::vec& rt, const arma::ivec& x,
     const double& a, const double& t0, const double& z, const double& v ) {
     return ddm4_lanll_weights_rcpp( rt, x, a, t0, z, v );
 }
 
-// // [[Rcpp::export]]
-// arma::vec ddm4_lanll_weights_new_export( const arma::vec& rt, const arma::ivec& x,
-//     const double& a, const double& t0, const double& z, const double& v ) {
-//     return ddm4_lanll_weights_rcpp_new( rt, x, a, t0, z, v );
-// }
+// [[Rcpp::export]]
+arma::vec ddm4_lanll_weights_batch_export( const arma::vec& rt, const arma::ivec& x,
+    const double& a, const double& t0, const double& z, const double& v ) {
+    return ddm4_lanll_weights_batch_rcpp( rt, x, a, t0, z, v );
+}
 
 // [[Rcpp::export]]
 Rcpp::List ddm4_lanll_grad_weights_rcpp( const arma::colvec& alpha, const arma::vec& rt, 
@@ -59,19 +65,20 @@ Rcpp::List ddm4_lanll_grad_weights_rcpp( const arma::colvec& alpha, const arma::
 
     //- get information for the loop:
     int n = rt.size();
-    arma::vec output(5, arma::fill::zeros);
-    arma::vec input(6);
+    // arma::vec output(5, arma::fill::zeros);
+    // arma::vec input(6);
     
-    //- loop:
-    for ( int i = 0; i < n; i++ ) {
-        input(0) = a;
-        input(1) = v;
-        input(2) = t0;
-        input(3) = z;
-        input(4) = xs(i);
-        input(5) = rt(i);
-        output += lan_forward_backward_rcpp( input, 4 );
-    }
+    // //- loop:
+    // for ( int i = 0; i < n; i++ ) {
+    //     input(0) = a;
+    //     input(1) = v;
+    //     input(2) = t0;
+    //     input(3) = z;
+    //     input(4) = xs(i);
+    //     input(5) = rt(i);
+    //     output += lan_forward_backward_rcpp( input, 4 );
+    // }
+    arma::vec output = ddm4_lanll_weights_grad_batch_rcpp( rt, xs, a, t0, z, v, 4 );
 
     //- final step:
     arma::mat J( 4, 4, arma::fill::zeros );
