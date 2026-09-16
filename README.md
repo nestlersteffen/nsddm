@@ -48,17 +48,19 @@ ctrl <- list( type_alpha="dao", type_ddm="std", biter=5000, burnin=2500, nchain=
 
 # fit the model 
 
-fit <- ddm(rt=df$rt, xs=df$resp, estimator="ML", control=ctrl, verbose=TRUE )
+fit <- ddm(rt=df$rt, xs=df$resp, estimator="Bayes", control=ctrl, verbose=TRUE )
 
-# and the parm_table:
+# and now the parm_table:
 
 fit$parm_table
 
 ```
 
-## Example 2: single-person data
+## Example 2: hierarchical data
 
-In the first example, we fit a single-person 4-parameter DDM with ML. 
+In this example, we fit a hierarchical 4-parameter DDM with ML. 
+
+...
 
 ## Contributing
 
