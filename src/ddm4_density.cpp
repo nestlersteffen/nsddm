@@ -197,12 +197,12 @@ double ddm4_logLdata_rcpp( const arma::colvec& alpha, const arma::vec& rt,
         //     Rcpp::Rcout << "Dnn" << std::endl;
         //     log_densities = ddm4_lanll_dnn_rcpp( rt, x, a, t0, z, v, dnn ); 
         // } else {
-            Rcpp::Rcout << "Lan" << std::endl;
+            // Rcpp::Rcout << "Lan" << std::endl;
             log_densities = ddm4_lanll_weights_batch_rcpp( rt, x, a, t0, z, v );
         // }        
     } else {
         // z immer übergeben, w weglassen (NA_REAL ist Default)
-        Rcpp::Rcout << "Standard" << std::endl;
+        // Rcpp::Rcout << "Standard" << std::endl;
         arma::vec densities = ddm4_pdf_rcpp( rt, x, a, t0, w, NA_REAL, v, type_ddm, kmax, delta );
         densities.replace( 0.0, 1e-29 );
         densities( arma::find_nonfinite(densities) ).fill( 1e-29 );

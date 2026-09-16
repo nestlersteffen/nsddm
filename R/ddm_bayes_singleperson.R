@@ -59,7 +59,13 @@ ddm_bayes_singleperson <- function( rt=NULL, xs=NULL, parms=NULL, args=NULL, ddm
 	        cl <- parallel::makeCluster(nchain)
 	        doParallel::registerDoParallel(cl)
 	        on.exit(parallel::stopCluster(cl), add = TRUE)
-	    } else {
+	       
+            parallel::clusterEvalQ(cl, {
+                RhpcBLASctl::blas_set_num_threads(1)
+                RhpcBLASctl::omp_set_num_threads(1)
+            })
+
+        } else {
 	        doParallel::registerDoParallel(cl)
 	    }
 

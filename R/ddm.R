@@ -102,8 +102,8 @@ ddm <- function( rt=NULL, xs=NULL, estimator="ML", control=ddm_args(), verbose=T
  		tab <- data.frame( Par=paste0("alpha",c(1:4)), Est=parm, SE=ses )
  		tab$z   <- with( tab, Est/SE )   
 		tab$p   <- 2 * pnorm( -abs( tab$z ) )
-		tab$lCI <- tab$est - 1.96*tab$SE
-		tab$uCI <- tab$est + 1.96*tab$SE
+		tab$lCI <- tab$Est - 1.96*tab$SE
+		tab$uCI <- tab$Est + 1.96*tab$SE
 
 		#- output:
     	result <- list( parm_table=tab, vcov=vcov )

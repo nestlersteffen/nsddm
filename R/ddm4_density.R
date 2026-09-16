@@ -179,10 +179,10 @@ ddm4_logLdata <- function( us=NULL, rt=NULL, xs=NULL, args=NULL, weights=NULL, d
     #- step 2: compute likelihood
     if ( args$use_lan ) {
         if ( args$use_tf ) {
-            print("lan with tf")
+            # print("lan with tf")
             nll <- ddm4_lan_llfct_dnn( dnn=dnn, rt=rt, xs=xs, v=v, a=a, z=z, t0=t0 )    
         } else {
-            print("lan with weights")
+            # print("lan with weights")
             nll <- ddm4_lanll_weights( weights=weights, a=a, v=v, t0=t0, z=z, rt=rt, xs=xs )
         }
     } else {

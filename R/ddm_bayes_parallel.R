@@ -18,6 +18,12 @@ ddm_parallel_bayes <- function( rts=NULL, xs=NULL, info=NULL, I=NULL, K=NULL,
         cl <- parallel::makeCluster(nchain)
         doParallel::registerDoParallel(cl)
         on.exit(parallel::stopCluster(cl), add = TRUE)
+
+        parallel::clusterEvalQ(cl, {
+            RhpcBLASctl::blas_set_num_threads(1)
+            RhpcBLASctl::omp_set_num_threads(1)
+        })
+
     } else {
         doParallel::registerDoParallel(cl)
     }
