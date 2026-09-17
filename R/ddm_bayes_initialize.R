@@ -39,11 +39,11 @@ ddm_inits_bayes <- function( rts = NULL, I=NULL, K=NULL, args=NULL, ddm=NULL )
 {
         
     #- things that are constant across init-methods:
-    m   <- rep( 0, K ) # args$m 
-    M   <- diag(1, K ) # args$M
-    a_d <- 1 / rgamma( K, 0.5, 1) 
-    nu0 <- 2                   # args$nu0
-    S0  <- 4*diag( 1/a_d, K )  # args$S0
+    a_d <- 1 / rgamma( K, 0.5, 1)
+    if ( is.null( args$bayes_list$m) ) m <- rep(0,K)  else m <- args$bayes_list$m
+    if ( is.null( args$bayes_list$M) ) M <- diag(1,K) else M <- args$bayes_list$M
+    if ( is.null( args$bayes_list$S0) ) S0 <- 4*diag( 1/a_d, K ) else S0 <- args$bayes_list$S0
+    if ( is.null( args$bayes_list$nu0) ) nu0 <- 2 else nu0 <- args$bayes_list$nu0
 
     #- get no. of chains:
     nchain <- args$bayes_list$nchain

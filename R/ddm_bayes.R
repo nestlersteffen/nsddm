@@ -18,7 +18,7 @@ ddm_random_bayes <- function( data_list=NULL, parm_table=NULL, args=NULL,
     nu0    <- inits$nu0 
     S0     <- inits$S0
     a_d    <- inits$a_d
-    
+
     #- set args for the MCMC chain:
     accept <- accept_post <- 0
     biter  <- args$bayes_list$biter

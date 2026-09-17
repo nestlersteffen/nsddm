@@ -7,6 +7,7 @@
 hddm(
   rt = NULL,
   xs = NULL,
+  id = NULL,
   estimator = "ML",
   control = ddm_args(),
   debug = FALSE
@@ -17,13 +18,13 @@ hddm(
 
 \item{xs}{A vector with choices}
 
+\item{id}{A vector to identify which times and choices belongs to which level 2-unit}
+
 \item{estimator}{A string indicating use of "ML" or "Bayes", defaults to "ML"}
 
 \item{control}{A list of control arguments}
 
 \item{debug}{A control argument for debugging, for internal use only}
-
-\item{id}{A vector to identify which times and choices belongs to which level 2-unit}
 }
 \description{
 Fit a hierarchical four-parameter DDM to data

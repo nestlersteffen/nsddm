@@ -195,7 +195,7 @@ arma::vec ddm4_lanll_weights_grad_batch_rcpp( const arma::vec& rt, const arma::i
 
     //- all for the output:
     arma::vec result(1 + idx);
-    result(0) = arma::accu( out, 0);
+    result(0) = arma::accu( out );
     result.subvec(1, idx) = arma::sum( grad_input.cols(0,idx-1 ), 0 ).t();
     return result;
 

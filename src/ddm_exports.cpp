@@ -64,7 +64,7 @@ Rcpp::List ddm4_lanll_grad_weights_rcpp( const arma::colvec& alpha, const arma::
     t0 = std::exp( alpha(3) );
 
     //- get information for the loop:
-    int n = rt.size();
+    // int n = rt.size();
     // arma::vec output(5, arma::fill::zeros);
     // arma::vec input(6);
     
