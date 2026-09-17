@@ -202,6 +202,7 @@ Rcpp::List ddm_chain_rcpp( const arma::vec& rts, const arma::ivec& xs,
     arma::cube alpha_store;
     arma::mat mu_hats;
     arma::cube sigma_hats;
+    arma::uvec has_adapted( I, arma::fill::zeros );
     if ( type_proposal == "pmwg" && use_adapt_dao ) {
         alpha_store.zeros( biter - burnin, I, K );
         mu_hats.zeros( I, K );
@@ -281,27 +282,35 @@ Rcpp::List ddm_chain_rcpp( const arma::vec& rts, const arma::ivec& xs,
                 // compute info for mixture:
                 arma::colvec mu_hat( K, arma::fill::zeros );
                 arma::mat sigma_hat( K, K, arma::fill::eye );
+                
+                // relevant in case adaptation is used:
                 bool use_adapt = false;
 
-                if ( use_adapt_dao && in_adapt && n_adapt > K + 1 && n_adapt % 20 == 0 && nn < 5000 ) {
+                if ( use_adapt_dao && in_adapt && n_adapt > K + 1 && n_adapt % 20 == 0 && n_adapt < 5000 ) {
+                    
                     //- extract draws for person i: slice is (n_adapt x K)
                     arma::mat draws_i = alpha_store.tube( 
                         arma::span(0, n_adapt-1), arma::span(i, i) );
                     draws_i.reshape( n_adapt, K );
-                    mu_hat    = arma::mean( draws_i, 0 ).t();
-                    sigma_hat = arma::cov( draws_i );
-                    use_adapt = true;
+                    arma::colvec mu_tmp    = arma::mean( draws_i, 0 ).t();
+                    arma::mat    sigma_tmp = arma::cov( draws_i );
+                    
+                    //- make cholesky decomposition test:
                     arma::mat chol_test;
-                    if ( !arma::chol( chol_test, sigma_hat ) ) {
-                        sigma_hat = c_SIGa;
-                        use_adapt = false;
+                    if ( arma::chol( chol_test, sigma_tmp ) ) {
+                        mu_hats.row(i)      = mu_tmp.t(); 
+                        sigma_hats.slice(i) = sigma_tmp;  
+                        has_adapted(i)      = 1;
                     }
-                }   else if ( use_adapt_dao && use_adapt ) {
-                    // use stored values from last update
-                    mu_hat    = mu_hats.row(i).t();
-                    sigma_hat = sigma_hats.slice(i);
+                    // is test fails, we save nothing
                 }
 
+                if ( use_adapt_dao && has_adapted(i) ) {  
+                    mu_hat    = mu_hats.row(i).t();
+                    sigma_hat = sigma_hats.slice(i);
+                    use_adapt = true;
+                }
+                
                 // get new alpha
                 alpha_new = ddm_pmwg_step_rcpp( 
                     alpha.row(i).t(), c_logData(i), rti, xsi, K, 
