@@ -32,7 +32,7 @@ ddm_parallel_bayes <- function( rts=NULL, xs=NULL, info=NULL, I=NULL, K=NULL,
     nc <- NULL
     results <- foreach::foreach( nc = seq(1, nchain, 1 ), .packages = "nsddm" ) %dopar% {
         
-        nbddm::ddm_chain_rcpp( rts=rts, xs=xs, info=info, I=I, K=K, 
+        nsddm::ddm_chain_rcpp( rts=rts, xs=xs, info=info, I=I, K=K, 
             alpha=inits$alpha[,,nc],c_MUa=inits$MUa[,nc],c_SIGa=inits$SIGa[,,nc],
             m=inits$m, invM=base::solve(inits$M), S0=inits$S0, nu0=inits$nu0, a_d=inits$a_d,
             biter=args$bayes_list$biter, burnin=args$bayes_list$burnin, use_adapt_dao=args$bayes_list$use_adapt_dao,
@@ -41,6 +41,7 @@ ddm_parallel_bayes <- function( rts=NULL, xs=NULL, info=NULL, I=NULL, K=NULL,
             pi_mix2=args$bayes_list$pi_mix2, pi_mix3=args$bayes_list$pi_mix3, R=args$bayes_list$R,
             method=args$type_ddm, type_alpha=args$type_alpha, 
             type_proposal=args$bayes_list$type_proposal, 
+            type_sigma_prior=args$bayes_list$type_sigma_prior,
             verbose=FALSE, ddm=ddm, kmax=args$kmax, delta=args$delta,
             use_lan=args$use_lan, lan_path=lan_path )
 

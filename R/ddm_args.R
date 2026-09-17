@@ -39,6 +39,7 @@ ddm_args <- function(
     epsilon = 0.10, 
     R = 20,
     type_proposal = "pmwg", # pmwg, mixture, standard
+    type_sigma_prior = "huang_wand", # informative
     type_inits = "none", # none, ml
     m = NULL,
     M = NULL,
@@ -56,6 +57,25 @@ ddm_args <- function(
 
     if ( !( method %in% c( "AGH", "QMC", "IS" ) ) ) {
         stop("Method to approximate integrals for ML not available.") }
+
+    if ( !( type_sigma_prior %in% c("huang_wand", "informative") ) ) {
+        stop("Prior type for Sigma_alpha not available.") }
+
+    if ( type_proposal %in% c("mixture","standard") ) {
+        if ( !missing(type_sigma_prior) && type_sigma_prior == "huang_wand" ) {
+            warning("type_sigma_prior='huang_wand' is not supported for type_proposal='",
+               type_proposal, "'; we use 'informative'.")
+        }
+        type_sigma_prior <- "informative"
+    }
+
+    if ( type_sigma_prior == "huang_wand" && !is.null(S0) ) {
+        warning("S0 is ignored when type_sigma_prior='huang_wand' ignoriert.")
+    }
+    
+    if ( type_sigma_prior == "huang_wand" && !is.null(nu0) && nu0 != 2 ) {
+        message("Dao et al. suggest to use nu0 =2, your nu0 != 2.")
+    }
 
     if (!is.numeric(n_threads) || n_threads < 0 || n_threads != as.integer(n_threads)) {
         stop("n_threads must be positive and a number.")
@@ -92,6 +112,7 @@ ddm_args <- function(
         epsilon = epsilon, 
         R = R,
         type_proposal = type_proposal,
+        type_sigma_prior = type_sigma_prior,
         type_inits = type_inits,
         m = m,
         M = M,

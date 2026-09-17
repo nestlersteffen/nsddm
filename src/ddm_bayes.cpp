@@ -174,7 +174,8 @@ Rcpp::List ddm_chain_rcpp( const arma::vec& rts, const arma::ivec& xs,
     const double tau2, const double epsilon, 
     const double pi_mix, const double pi_mix1, const double pi_mix2, const double pi_mix3, const int R,
     const std::string method, const std::string type_alpha, const std::string type_proposal,
-    const std::string ddm, bool verbose, const int& kmax = 5000, const double& delta = 1e-29,
+    const std::string type_sigma_prior, const std::string ddm, bool verbose, 
+    const int& kmax = 5000, const double& delta = 1e-29,
     bool use_lan = false, std::string lan_path = "" )
 {
 
@@ -246,7 +247,7 @@ Rcpp::List ddm_chain_rcpp( const arma::vec& rts, const arma::ivec& xs,
 
         // %% update SIGMAalpha    
         Rcpp::List tmp_SIGa = ddm_update_sigmaalpha_rcpp( alpha, c_MUa, I, K,
-            nu0, S0, a_d, type_proposal );
+            nu0, S0, a_d, type_sigma_prior );
         c_invSIGa = Rcpp::as<arma::mat>( tmp_SIGa["c_invSIGa"] );
         c_SIGa = Rcpp::as<arma::mat>( tmp_SIGa["c_SIGa"] );
         a_d = Rcpp::as<arma::vec>( tmp_SIGa["a_d"] );

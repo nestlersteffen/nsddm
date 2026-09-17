@@ -173,7 +173,7 @@ ddm_update_a <- function( a_d=NULL, nu0=NULL, c_invSIGa=NULL, K=NULL )
 }
 
 ddm_update_sigmaalpha <- function( alpha=NULL, MUa=NULL, I=NULL, K=NULL, 
-    nu0=NULL, S0=NULL, a_d=NULL, type_proposal=NULL )
+    nu0=NULL, S0=NULL, a_d=NULL, type_sigma_prior=NULL )
 {
 
     #- compute covariance matrix of alpha:
@@ -181,11 +181,11 @@ ddm_update_sigmaalpha <- function( alpha=NULL, MUa=NULL, I=NULL, K=NULL,
     alphacov <- t( alpha - matMUa )%*%( alpha - matMUa )
 
     #- compute mean and scale for wishart distribution:
-    if ( type_proposal == "pmwg" ) {
+    if ( type_sigma_prior== "huang_wand" ) {
         k_alpha <- nu0 + K - 1 + I
         B_alpha <- 2*nu0*diag( 1/a_d, K ) + alphacov
-    } else if ( type_proposal == "mixture" || type_proposal == "std" ) {
-        k_alpha <- nu0 + K + I
+    } else { # always used in type_proposal == "mixture" || type_proposal == "std" 
+        k_alpha <- nu0 + I
         B_alpha <- S0 + alphacov
     }
 
@@ -194,7 +194,7 @@ ddm_update_sigmaalpha <- function( alpha=NULL, MUa=NULL, I=NULL, K=NULL,
     c_SIGa    <- base::solve( c_invSIGa )
 
     #- update a_d:
-    if ( type_proposal == "pmwg" ) {
+    if ( type_sigma_prior== "huang_wand" ) {
         a_d <- ddm_update_a( a_d=a_d, nu0=nu0, c_invSIGa=c_invSIGa, K=K )
     }
                 

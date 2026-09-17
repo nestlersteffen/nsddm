@@ -50,7 +50,7 @@ arma::mat outer_arma(arma::mat x, arma::rowvec mean )
 Rcpp::List ddm_update_sigmaalpha_rcpp( const arma::mat& alpha, 
     const arma::colvec& c_MUa, const int I, const int K,
     const int nu0, const arma::mat& S0, arma::vec a_d,
-    const std::string type_proposal )
+    const std::string type_sigma_prior )
 {
     //- compute covariance matrix of alpha:
     arma::mat alphacov = outer_arma( alpha, c_MUa.t() );
@@ -58,11 +58,11 @@ Rcpp::List ddm_update_sigmaalpha_rcpp( const arma::mat& alpha,
     //- compute degrees of freedom and scale matrix:
     double k_alpha;
     arma::mat B_alpha;
-    if ( type_proposal == "pmwg" ) {
+    if ( type_sigma_prior == "huang_wand" ) {
         k_alpha = nu0 + K - 1 + I;
         B_alpha = 2.0 * nu0 * arma::diagmat( 1.0/a_d ) + alphacov;
     } else {
-        k_alpha = nu0 + K + I;
+        k_alpha = nu0 + I;
         B_alpha = S0 + alphacov;
     }
     
@@ -71,7 +71,7 @@ Rcpp::List ddm_update_sigmaalpha_rcpp( const arma::mat& alpha,
     arma::mat c_SIGa    = arma::inv_sympd( c_invSIGa );
     
     //- update a_d:
-    if ( type_proposal == "pmwg" ) {
+    if ( type_sigma_prior == "huang_wand" ) {
         a_d = ddm_update_a_rcpp( a_d, nu0, c_invSIGa, K );
     }
     

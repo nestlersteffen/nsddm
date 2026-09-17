@@ -20,4 +20,4 @@ arma::mat outer_arma(arma::mat x, arma::rowvec mean );
 Rcpp::List ddm_update_sigmaalpha_rcpp( const arma::mat& alpha, 
     const arma::colvec& c_MUa, const int I, const int K,
     const int nu0, const arma::mat& S0, arma::vec a_d,
-    const std::string type_proposal );
+    const std::string type_sigma_prior );

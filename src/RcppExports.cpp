@@ -12,8 +12,8 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // ddm_chain_rcpp
-Rcpp::List ddm_chain_rcpp(const arma::vec& rts, const arma::ivec& xs, const arma::mat& info, const int I, const int K, arma::mat alpha, arma::colvec c_MUa, arma::mat c_SIGa, const arma::colvec& m, const arma::mat& invM, const arma::mat& S0, const int nu0, arma::vec a_d, const int biter, const int burnin, bool use_adapt_dao, const double tau2, const double epsilon, const double pi_mix, const double pi_mix1, const double pi_mix2, const double pi_mix3, const int R, const std::string method, const std::string type_alpha, const std::string type_proposal, const std::string ddm, bool verbose, const int& kmax, const double& delta, bool use_lan, std::string lan_path);
-RcppExport SEXP _nsddm_ddm_chain_rcpp(SEXP rtsSEXP, SEXP xsSEXP, SEXP infoSEXP, SEXP ISEXP, SEXP KSEXP, SEXP alphaSEXP, SEXP c_MUaSEXP, SEXP c_SIGaSEXP, SEXP mSEXP, SEXP invMSEXP, SEXP S0SEXP, SEXP nu0SEXP, SEXP a_dSEXP, SEXP biterSEXP, SEXP burninSEXP, SEXP use_adapt_daoSEXP, SEXP tau2SEXP, SEXP epsilonSEXP, SEXP pi_mixSEXP, SEXP pi_mix1SEXP, SEXP pi_mix2SEXP, SEXP pi_mix3SEXP, SEXP RSEXP, SEXP methodSEXP, SEXP type_alphaSEXP, SEXP type_proposalSEXP, SEXP ddmSEXP, SEXP verboseSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP, SEXP lan_pathSEXP) {
+Rcpp::List ddm_chain_rcpp(const arma::vec& rts, const arma::ivec& xs, const arma::mat& info, const int I, const int K, arma::mat alpha, arma::colvec c_MUa, arma::mat c_SIGa, const arma::colvec& m, const arma::mat& invM, const arma::mat& S0, const int nu0, arma::vec a_d, const int biter, const int burnin, bool use_adapt_dao, const double tau2, const double epsilon, const double pi_mix, const double pi_mix1, const double pi_mix2, const double pi_mix3, const int R, const std::string method, const std::string type_alpha, const std::string type_proposal, const std::string type_sigma_prior, const std::string ddm, bool verbose, const int& kmax, const double& delta, bool use_lan, std::string lan_path);
+RcppExport SEXP _nsddm_ddm_chain_rcpp(SEXP rtsSEXP, SEXP xsSEXP, SEXP infoSEXP, SEXP ISEXP, SEXP KSEXP, SEXP alphaSEXP, SEXP c_MUaSEXP, SEXP c_SIGaSEXP, SEXP mSEXP, SEXP invMSEXP, SEXP S0SEXP, SEXP nu0SEXP, SEXP a_dSEXP, SEXP biterSEXP, SEXP burninSEXP, SEXP use_adapt_daoSEXP, SEXP tau2SEXP, SEXP epsilonSEXP, SEXP pi_mixSEXP, SEXP pi_mix1SEXP, SEXP pi_mix2SEXP, SEXP pi_mix3SEXP, SEXP RSEXP, SEXP methodSEXP, SEXP type_alphaSEXP, SEXP type_proposalSEXP, SEXP type_sigma_priorSEXP, SEXP ddmSEXP, SEXP verboseSEXP, SEXP kmaxSEXP, SEXP deltaSEXP, SEXP use_lanSEXP, SEXP lan_pathSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -43,13 +43,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const std::string >::type method(methodSEXP);
     Rcpp::traits::input_parameter< const std::string >::type type_alpha(type_alphaSEXP);
     Rcpp::traits::input_parameter< const std::string >::type type_proposal(type_proposalSEXP);
+    Rcpp::traits::input_parameter< const std::string >::type type_sigma_prior(type_sigma_priorSEXP);
     Rcpp::traits::input_parameter< const std::string >::type ddm(ddmSEXP);
     Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
     Rcpp::traits::input_parameter< const int& >::type kmax(kmaxSEXP);
     Rcpp::traits::input_parameter< const double& >::type delta(deltaSEXP);
     Rcpp::traits::input_parameter< bool >::type use_lan(use_lanSEXP);
     Rcpp::traits::input_parameter< std::string >::type lan_path(lan_pathSEXP);
-    rcpp_result_gen = Rcpp::wrap(ddm_chain_rcpp(rts, xs, info, I, K, alpha, c_MUa, c_SIGa, m, invM, S0, nu0, a_d, biter, burnin, use_adapt_dao, tau2, epsilon, pi_mix, pi_mix1, pi_mix2, pi_mix3, R, method, type_alpha, type_proposal, ddm, verbose, kmax, delta, use_lan, lan_path));
+    rcpp_result_gen = Rcpp::wrap(ddm_chain_rcpp(rts, xs, info, I, K, alpha, c_MUa, c_SIGa, m, invM, S0, nu0, a_d, biter, burnin, use_adapt_dao, tau2, epsilon, pi_mix, pi_mix1, pi_mix2, pi_mix3, R, method, type_alpha, type_proposal, type_sigma_prior, ddm, verbose, kmax, delta, use_lan, lan_path));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -397,7 +398,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_nsddm_ddm_chain_rcpp", (DL_FUNC) &_nsddm_ddm_chain_rcpp, 32},
+    {"_nsddm_ddm_chain_rcpp", (DL_FUNC) &_nsddm_ddm_chain_rcpp, 33},
     {"_nsddm_ddm4_pdf_export", (DL_FUNC) &_nsddm_ddm4_pdf_export, 10},
     {"_nsddm_ddm7_pdf_export", (DL_FUNC) &_nsddm_ddm7_pdf_export, 12},
     {"_nsddm_lan_load_weights_export", (DL_FUNC) &_nsddm_lan_load_weights_export, 2},

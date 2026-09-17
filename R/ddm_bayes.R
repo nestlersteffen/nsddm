@@ -109,7 +109,7 @@ ddm_random_bayes <- function( data_list=NULL, parm_table=NULL, args=NULL,
 
                 #- update SIGMAalpha: 
                 tmp_SIGa <- ddm_update_sigmaalpha( alpha=alpha, MUa=MUa[nn,], I=I, K=K, 
-                    nu0=nu0, S0=S0, a_d=a_d, type_proposal=args$bayes_list$type_proposal )
+                    nu0=nu0, S0=S0, a_d=a_d, type_sigma_prior=args$bayes_list$type_sigma_prior )
                 a_d       <- tmp_SIGa$a_d
                 c_SIGa    <- tmp_SIGa$c_SIGa
                 c_invSIGa <- tmp_SIGa$c_invSIGa
@@ -192,7 +192,8 @@ ddm_random_bayes <- function( data_list=NULL, parm_table=NULL, args=NULL,
                 pi_mix=args$bayes_list$pi_mix, pi_mix1=args$bayes_list$pi_mix1, pi_mix2=args$bayes_list$pi_mix2, 
                 pi_mix3=args$bayes_list$pi_mix3, R=args$bayes_list$R,
                 method=args$type_ddm, type_alpha=args$type_alpha, 
-                type_proposal=args$bayes_list$type_proposal, 
+                type_proposal=args$bayes_list$type_proposal,
+                type_sigma_prior=args$bayes_list$type_sigma_prior, 
                 verbose=verbose, ddm=ddm, kmax=args$kmax, delta=args$delta,
                 use_lan=args$use_lan, lan_path=lan_path )
 
