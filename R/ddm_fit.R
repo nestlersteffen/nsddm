@@ -60,7 +60,7 @@ ddm_fit_ml <- function( parm_table=NULL, parm_list=NULL, data_list=NULL,
 			warning_raneff <- 1
 			break
 		} else {
-			print( "Modes ok!")
+			if ( args$nlminb_list$trace == 1 ) print( "Modes ok!")
 		}
 
 		#- Step 2: make pts_array:

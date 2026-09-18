@@ -6,10 +6,10 @@
 #' @param id A vector to identify which times and choices belongs to which level 2-unit
 #' @param estimator A string indicating use of "ML" or "Bayes", defaults to "ML"
 #' @param control A list of control arguments
-#' @param debug A control argument for debugging, for internal use only
+#' @param verbose A control argument to see the optimization history, defaults to "TRUE"
 #' @export
 
-hddm <- function( rt=NULL, xs=NULL, id=NULL, estimator="ML", control=ddm_args(), debug=FALSE )
+hddm <- function( rt=NULL, xs=NULL, id=NULL, estimator="ML", control=ddm_args(), verbose=TRUE )
 {
 
 	#--- step 0: make args_list:
@@ -51,19 +51,18 @@ hddm <- function( rt=NULL, xs=NULL, id=NULL, estimator="ML", control=ddm_args(),
 		start_vals <- ddm4_getstarts( data_list=data_list, args=args, ddm="four" )
 		parm_table$starts <- round( start_vals$starts, 4 )
 
-		#--- now we fit the model:
+		#--- set verbose:
 		if ( verbose ) args$maxlik_list$verbose_out <- TRUE
 
+		#--- get estimates:
 		result <- ddm_fit_ml( parm_table=parm_table, parm_list=parm_list, 
 			data_list=data_list, args=args, ddm="four" )
 
-		if ( !converged ) {
-			warning( "Algorithm has not converged.")
-		}
+		if ( !result$converged ) warning( "Algorithm has not converged.") 
 
  	} else if ( estimator == "Bayes" ) {
 
- 		result <- suppressWarnings( tryCatch( { 
+ 		fit_bayes <- suppressWarnings( tryCatch( { 
  			ddm_random_bayes( data_list=data_list, parm_table=parm_table, args=args, 
  				ddm="four",verbose=verbose ) },
                 error = function(e) { NULL } ) )

@@ -9,8 +9,7 @@ ddm(
   xs = NULL,
   estimator = "ML",
   control = ddm_args(),
-  verbose = TRUE,
-  debug = FALSE
+  verbose = TRUE
 )
 }
 \arguments{
@@ -23,8 +22,6 @@ ddm(
 \item{control}{A list of control arguments}
 
 \item{verbose}{A boolean control argument to see the optimization history, defaults to TRUE}
-
-\item{debug}{A control argument for debugging, for internal use only}
 }
 \description{
 Fit a four-parameter DDM to the data of a single person

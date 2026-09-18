@@ -6,10 +6,9 @@
 #' @param estimator A string indicating use of "ML" or "Bayes", defaults to "ML"
 #' @param control A list of control arguments
 #' @param verbose A boolean control argument to see the optimization history, defaults to TRUE
-#' @param debug A control argument for debugging, for internal use only
 #' @export
 
-ddm <- function( rt=NULL, xs=NULL, estimator="ML", control=ddm_args(), verbose=TRUE, debug=FALSE )
+ddm <- function( rt=NULL, xs=NULL, estimator="ML", control=ddm_args(), verbose=TRUE )
 {
 
 	#--- step 0: make args_list:

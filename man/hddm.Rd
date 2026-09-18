@@ -10,7 +10,7 @@ hddm(
   id = NULL,
   estimator = "ML",
   control = ddm_args(),
-  debug = FALSE
+  verbose = TRUE
 )
 }
 \arguments{
@@ -24,7 +24,7 @@ hddm(
 
 \item{control}{A list of control arguments}
 
-\item{debug}{A control argument for debugging, for internal use only}
+\item{verbose}{A control argument to see the optimization history, defaults to "TRUE"}
 }
 \description{
 Fit a hierarchical four-parameter DDM to data
